@@ -45,6 +45,23 @@ let
     specialConfig
   ;
 
+  # Add `allowAliases = false` to `evalWithConfiguration` for the release evaluations.
+  evalWithConfiguration =
+    config: device:
+    (mobileReleaseTools.withPkgs pkgs').evalWithConfiguration
+    {
+      imports = [
+        {
+          nixpkgs.config = {
+            allowAliases = false;
+          };
+        }
+        config
+      ];
+    }
+    device
+  ;
+
   # Systems we should eval for, per host system.
   # Non-native will be assumed cross.
   shouldEvalOn = {
