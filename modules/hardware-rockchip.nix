@@ -14,7 +14,7 @@ in
     hardware.socs.rockchip-op1.enable = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "enable when SOC is RK3399-OP1";
+      description = "enable when SOC is RK3399-OP1";
     };
   };
 

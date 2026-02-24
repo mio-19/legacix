@@ -73,21 +73,15 @@ in
     # Totally not upstreamable stuff.
     #
 
-    xorg = (
-      # Backward compatibility shim
-      # Fixes eval after https://github.com/NixOS/nixpkgs/pull/199912
-      # Can be removed on or after 2023-05-16
-      if super.xorg ? overrideScope'
-      then super.xorg.overrideScope'
-      else super.xorg.overrideScope
-    ) (self: super: {
-      xf86videofbdev = super.xf86videofbdev.overrideAttrs({patches ? [], ...}: {
-        patches = patches ++ [
-          ./xserver/0001-HACK-fbdev-don-t-bail-on-mode-initialization-fail.patch
-        ];
-      });
-    }) # See all-packages.nix for more about this messy composition :/
-    // { inherit (self) xlibsWrapper; };
+    xf86videofbdev = (
+      if super ? xorg
+      then super.xorg.xf86videofbdev
+      else super.xf86videofbdev
+    ).overrideAttrs ({ patches ? [], ... }: {
+      patches = patches ++ [
+        ./xserver/0001-HACK-fbdev-don-t-bail-on-mode-initialization-fail.patch
+      ];
+    });
 
     #
     # Fixes to upstream
@@ -120,7 +114,18 @@ in
         stdenv = with self; overrideCC stdenv buildPackages.gcc49;
       };
       kernel-builder-gcc6 = callPackage ./mobile-nixos/kernel/builder.nix {
-        stdenv = with self; overrideCC stdenv buildPackages.gcc6;
+        stdenv = with self; overrideCC stdenv (
+          if buildPackages ? gcc6
+          then buildPackages.gcc6
+          else buildPackages.gcc
+        );
+      };
+      kernel-builder-gcc8 = callPackage ./mobile-nixos/kernel/builder.nix {
+        stdenv = with self; overrideCC stdenv (
+          if buildPackages ? gcc8
+          then buildPackages.gcc8
+          else buildPackages.gcc
+        );
       };
       kernel-builder-clang_8 = callPackage ./mobile-nixos/kernel/builder.nix {
         stdenv = with self; overrideCC stdenv buildPackages.clang_8;

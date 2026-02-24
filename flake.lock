@@ -1,0 +1,164 @@
+{
+  "nodes": {
+    "asteroidos-asteroid-launcher": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771913388,
+        "narHash": "sha256-ISgTZCZQ71VpqklDbbMvkJUqZqo4g/CZYHdzqkLHbCE=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-launcher",
+        "rev": "1adc829168508e23f5b9267024b9cc1043f2cd3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-launcher",
+        "type": "github"
+      }
+    },
+    "asteroidos-lipstick": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664987,
+        "narHash": "sha256-g+vD8qksUOoIAI+0vLNNM0VYyxuh/1gYsRDsG4WzllU=",
+        "owner": "AsteroidOS",
+        "repo": "lipstick",
+        "rev": "ac2d4f0348e27c16c7f7eab3c03e265fc6466f0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "lipstick",
+        "type": "github"
+      }
+    },
+    "asteroidos-meta-smartwatch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771272818,
+        "narHash": "sha256-9blQ1VWzNjYC+pPmUje4jflkCABR4Kmy6iHAQ03g7EA=",
+        "owner": "AsteroidOS",
+        "repo": "meta-smartwatch",
+        "rev": "3f8b55b48d286f36044b06eb2801ab53d7c490a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "meta-smartwatch",
+        "type": "github"
+      }
+    },
+    "asteroidos-qml-asteroid": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771070942,
+        "narHash": "sha256-OYmp98UE88wnJ/T9Od5q63pdP33bkqufNwgrcwieO0w=",
+        "owner": "AsteroidOS",
+        "repo": "qml-asteroid",
+        "rev": "40a1d8befb61ac7066e4ee885f49393f2ec0d377",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "qml-asteroid",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "fossil-kernel-msm-fossil-cw": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678939020,
+        "narHash": "sha256-uf5Vln2M64ksT9BC4/R9gLV2yo6zK0vQeolyCUj/u+o=",
+        "owner": "fossil-engineering",
+        "repo": "kernel-msm-fossil-cw",
+        "rev": "c0b4c201f2d5a641defe19958a9b4c16f40d866b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fossil-engineering",
+        "ref": "fossil-android-msm-hoki-lw1.2-4.14",
+        "repo": "kernel-msm-fossil-cw",
+        "type": "github"
+      }
+    },
+    "mer-hybris-bluebinder": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668687691,
+        "narHash": "sha256-UPn9vp21PKL+KEqDjssiScOA8D3QmSAve7Ktmf9tLIk=",
+        "owner": "mer-hybris",
+        "repo": "bluebinder",
+        "rev": "9c15cd87cd13e7176e805f959ee8602c491dd95a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mer-hybris",
+        "repo": "bluebinder",
+        "type": "github"
+      }
+    },
+    "mer-hybris-qt5-qpa-hwcomposer-plugin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767974961,
+        "narHash": "sha256-hZOy8ws4/9QFyJrXljanR6az59E8efcSLFb63zWqNCQ=",
+        "owner": "mer-hybris",
+        "repo": "qt5-qpa-hwcomposer-plugin",
+        "rev": "41e7bda3bc7a87a1cffd45d44bf6abef90460b38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mer-hybris",
+        "repo": "qt5-qpa-hwcomposer-plugin",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1771482645,
+        "narHash": "sha256-MpAKyXfJRDTgRU33Hja+G+3h9ywLAJJNRq4Pjbb4dQs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "724cf38d99ba81fbb4a347081db93e2e3a9bc2ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "asteroidos-asteroid-launcher": "asteroidos-asteroid-launcher",
+        "asteroidos-lipstick": "asteroidos-lipstick",
+        "asteroidos-meta-smartwatch": "asteroidos-meta-smartwatch",
+        "asteroidos-qml-asteroid": "asteroidos-qml-asteroid",
+        "flake-compat": "flake-compat",
+        "fossil-kernel-msm-fossil-cw": "fossil-kernel-msm-fossil-cw",
+        "mer-hybris-bluebinder": "mer-hybris-bluebinder",
+        "mer-hybris-qt5-qpa-hwcomposer-plugin": "mer-hybris-qt5-qpa-hwcomposer-plugin",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

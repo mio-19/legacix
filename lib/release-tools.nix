@@ -26,7 +26,25 @@ rec {
       ++ (import "${toString pkgs.path}/nixos/modules/module-list.nix")
     )
   }: evalConfig {
+    # Required for pure flake eval where builtins.currentSystem is unavailable.
+    system = pkgs.stdenv.hostPlatform.system;
     inherit baseModules;
+    specialArgs = {
+      asteroidosMetaSmartwatch =
+        if pkgs ? asteroidosMetaSmartwatch then pkgs.asteroidosMetaSmartwatch else null;
+      asteroidosAsteroidLauncher =
+        if pkgs ? asteroidosAsteroidLauncher then pkgs.asteroidosAsteroidLauncher else null;
+      asteroidosQmlAsteroid =
+        if pkgs ? asteroidosQmlAsteroid then pkgs.asteroidosQmlAsteroid else null;
+      asteroidosLipstick =
+        if pkgs ? asteroidosLipstick then pkgs.asteroidosLipstick else null;
+      merHybrisBluebinder =
+        if pkgs ? merHybrisBluebinder then pkgs.merHybrisBluebinder else null;
+      merHybrisQt5QpaHwcomposerPlugin =
+        if pkgs ? merHybrisQt5QpaHwcomposerPlugin then pkgs.merHybrisQt5QpaHwcomposerPlugin else null;
+      fossilKernelMsmFossilCw =
+        if pkgs ? fossilKernelMsmFossilCw then pkgs.fossilKernelMsmFossilCw else null;
+    };
     modules =
       (if device ? special
       then [ device.config ]

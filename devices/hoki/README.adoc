@@ -1,0 +1,38 @@
+= Fossil Gen 6 (`hoki`)
+
+This target is an initial AsteroidOS-based bring-up for `hoki`.
+
+Kernel source and patch set are reused from:
+
+* `AsteroidOS/meta-smartwatch/meta-hoki/recipes-kernel/linux`
+* https://github.com/fossil-engineering/kernel-msm-fossil-cw
+
+Both are consumed through `flake.nix` git inputs (no copied source trees).
+
+Current scope:
+
+* Kernel + boot image parameter wiring
+* Minimal Mobile NixOS device definition
+
+Not yet ported from AsteroidOS `meta-hoki`:
+
+* `android-system-data` packaging
+* `android-init` + property context additions
+* device-specific initramfs script overlays
+* `bluebinder`/hybris binder userspace integration
+* device-specific patches for `bluez`, `geoclue`, `pulseaudio`
+* `lipstick`, `nfcd`, `ngfd`, and `libnci` bbappend behavior
+* `linux-audio-modules-hoki` out-of-tree module packaging
+
+== Image Build (AsteroidOS-style)
+
+Use the dedicated profile:
+
+----
+nix-build examples/hoki-asteroidos -A outputs.default
+----
+
+That output directory contains:
+
+* `asteroidos.ext4` (root filesystem image)
+* `boot.img` (Android-compatible boot image)

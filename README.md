@@ -21,6 +21,51 @@ This fork intentionally keeps support for downstream vendor kernels, `libhybris`
 - [AsteroidOS](https://asteroidos.org/)
 - [AsteroidOS FAQ (`libhybris` context)](https://wiki.asteroidos.org/index.php/Frequently_Asked_Questions_(FAQ))
 
+## Nix Support Policy
+
+Only Nix Flakes are supported in this repository.
+Legacy non-flake workflows are not supported.
+
+This flake includes AsteroidOS `meta-smartwatch` as a non-flake input for
+kernel patch reuse and related integration work:
+
+- https://github.com/AsteroidOS/meta-smartwatch
+- https://github.com/AsteroidOS/asteroid-launcher
+- https://github.com/AsteroidOS/qml-asteroid
+- https://github.com/AsteroidOS/lipstick
+- https://github.com/mer-hybris/bluebinder
+- https://github.com/mer-hybris/qt5-qpa-hwcomposer-plugin
+- https://github.com/fossil-engineering/kernel-msm-fossil-cw
+
+Common commands:
+
+- `nix develop`
+- `nix flake show`
+
+## AsteroidOS Reuse Status
+
+First target added: `hoki` (Fossil Gen 6 platform).
+
+Current reuse in-tree:
+
+- `meta-hoki` kernel defconfig + patch stack from `meta-smartwatch`
+- `kernel-msm-fossil-cw` source pinned to AsteroidOS `linux-hoki` revision
+
+Additional AsteroidOS pieces identified (not yet ported here):
+
+- `meta-hoki` `android-system-data`
+- `android-init` additions and property contexts
+- initramfs script overlays
+- hybris/binder userspace pieces (`bluebinder`, etc.)
+- device bbappends for `bluez`, `geoclue`, `pulseaudio`
+- Nemo/mobile pieces (`lipstick`, `nfcd`, `ngfd`, `libnci`)
+- out-of-tree audio modules (`linux-audio-modules-hoki`)
+
+## Project Plan
+
+This project follows the roadmap in [PLAN.md](PLAN.md).
+New work should be implemented against the current phase goals in that plan.
+
 ## Documentation
 
 - [Mobile NixOS website](https://mobile.nixos.org/) (rendered documentation)

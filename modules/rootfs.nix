@@ -16,7 +16,7 @@ in
         enableDefaultConfiguration = mkOption {
           type = types.bool;
           default = config.mobile.enable;
-          description = lib.mdDoc ''
+          description = ''
             Whether some of the rootfs configuration is managed by Mobile NixOS or not.
           '';
         };
@@ -24,7 +24,7 @@ in
           type = types.bool;
           default = config.nix.enable;
           defaultText = lib.literalExpression "config.nix.enable";
-          description = lib.mdDoc ''
+          description = ''
             Whether to rehydrate the store at first boot or not.
 
             The only reason you would disable this is to build a target system that has no Nix binaries.

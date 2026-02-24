@@ -1,27 +1,11 @@
-{ pkgs ? import ./pkgs.nix { } }:
-
-let pkgs' = pkgs; in # Break the cycle
-let
-  pkgs = pkgs'.appendOverlays [
-    (import ./overlay/overlay.nix)
-  ];
-in
-
-# A basic shell with some tools available for porting devices.
-pkgs.mkShell rec {
-  name = "nixos-mobile";
-  buildInputs = with pkgs; [
-    # Custom tools
-    mobile-nixos.autoport     # Helps users kickstart their ports
-
-    # Third party tools
-    android-tools             # For flashing android devices with fastboot
-    dtc                       # For playing around with device tree files
-    dtbTool                   # Combines multiple device tree blobs into one image
-    file                      # Shows the type of files
-    lz4                       # Decompress image files
-    mkbootimg                 # Pack and unpack boot images
-    python3Packages.binwalk   # Search a binary image for embedded files
-    ubootTools                # A couple useful utilities
-  ];
-}
+(import (
+  let
+    lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+    nodeName = lock.nodes.root.inputs.flake-compat;
+    node = lock.nodes.${nodeName}.locked;
+  in
+  fetchTarball {
+    url = node.url or "https://github.com/NixOS/flake-compat/archive/${node.rev}.tar.gz";
+    sha256 = node.narHash;
+  }
+) { src = ./.; }).shellNix
