@@ -26,6 +26,7 @@ let
 in
 mobile-nixos.kernel-builder-gcc8 {
   version = "4.14";
+  modDirVersion = "4.14.206";
   configfile = "${asteroidosHokiKernel}/linux-hoki/defconfig";
   src = fossilKernelMsmFossilCw;
 
@@ -39,6 +40,7 @@ mobile-nixos.kernel-builder-gcc8 {
   ];
 
   # AsteroidOS currently uses gcc8; use existing builder variant for now.
+  enableConfigValidation = false;
   enableRemovingWerror = true;
   isModular = false;
   isImageGzDtb = true;

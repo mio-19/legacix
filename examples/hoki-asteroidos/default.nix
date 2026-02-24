@@ -9,6 +9,18 @@ import ../../lib/eval-with-configuration.nix {
         rootfs = config.mobile.outputs.generatedFilesystems.rootfs;
         bootimg = config.mobile.outputs.android.android-bootimg;
       in {
+        # Keep the image profile minimal so iteration focuses on device bits.
+        documentation.enable = false;
+        documentation.nixos.enable = false;
+        documentation.man.enable = false;
+        documentation.doc.enable = false;
+        documentation.info.enable = false;
+        environment.defaultPackages = lib.mkForce [];
+        programs.command-not-found.enable = false;
+        security.sudo.enable = false;
+        services.udisks2.enable = false;
+        system.disableInstallerTools = true;
+
         mobile.outputs.default = lib.mkForce (pkgs.runCommand "asteroidos-hoki-images" {} ''
           mkdir -p "$out"
           cp -v ${rootfs}/${rootfs.filename} "$out/asteroidos.ext4"

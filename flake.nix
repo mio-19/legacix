@@ -73,7 +73,10 @@
           });
     in {
       overlays.default = final: prev:
-        (import ./overlay/overlay.nix final prev) // {
+        let
+          base = import ./overlay/overlay.nix final prev;
+        in
+        base // {
           # Expose AsteroidOS-related source inputs in pkgs for callPackage reuse.
           asteroidosMetaSmartwatch = asteroidos-meta-smartwatch;
           asteroidosAsteroidLauncher = asteroidos-asteroid-launcher;
@@ -82,6 +85,11 @@
           merHybrisBluebinder = mer-hybris-bluebinder;
           merHybrisQt5QpaHwcomposerPlugin = mer-hybris-qt5-qpa-hwcomposer-plugin;
           fossilKernelMsmFossilCw = fossil-kernel-msm-fossil-cw;
+          asteroidos = {
+            qml-asteroid = final.callPackage ./overlay/asteroidos/qml-asteroid {
+              asteroidosQmlAsteroid = asteroidos-qml-asteroid;
+            };
+          };
         };
 
       # Non-flake source inputs exported for reuse in repo code.

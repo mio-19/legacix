@@ -112,6 +112,10 @@ in
 # Enables a patch (for 5.4+) that forces the logo to be shown
 , enableForceLogoPatch ? true
 
+# Disable this for vendor kernels that intentionally diverge from generic
+# NixOS kernel config expectations.
+, enableConfigValidation ? true
+
 # Linux logo centering (as a boot logo)
 , enableCenteredLinuxLogo ? true
 
@@ -415,6 +419,7 @@ stdenv.mkDerivation (inputArgs // {
     fi
     runHook postConfigure
 
+  '' + optionalString enableConfigValidation ''
     (
     cd $buildRoot/
     echo
@@ -422,6 +427,7 @@ stdenv.mkDerivation (inputArgs // {
     echo
     ${evaluatedStructuredConfig.config.validatorSnippet}
     )
+  '' + ''
 
     make $makeFlags "''${makeFlagsArray[@]}" prepare
     actualModDirVersion="$(cat $buildRoot/include/config/kernel.release)"

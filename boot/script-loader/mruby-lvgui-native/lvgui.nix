@@ -49,8 +49,9 @@ let
   # Allow libevdev to cross-compile.
   libevdev = (pkgs.libevdev.override({
     python3 = null;
-  })).overrideAttrs({nativeBuildsInputs ? [], ...}: {
-    nativeBuildInputs = nativeBuildsInputs ++ [
+  })).overrideAttrs({ nativeBuildInputs ? [], ... }: {
+    nativeBuildInputs = nativeBuildInputs ++ [
+      pkgs.buildPackages.pkg-config
       pkgs.buildPackages.python3
     ];
   });
@@ -127,6 +128,12 @@ in
 
     makeFlags = [
       "PREFIX=${placeholder "out"}"
+      "CFLAGS+=-I."
+      "CFLAGS+=-I${libdrm.dev}/include/libdrm"
+      "CFLAGS+=-DLV_CONF_INCLUDE_SIMPLE"
+      "CFLAGS+=-Wno-error"
+      "CFLAGS+=-Wno-error=maybe-uninitialized"
+      "CFLAGS+=-Wno-error=uninitialized"
     ]
     ++ optional withSimulator "LVGL_ENV_SIMULATOR=1"
     ++ optional (!withSimulator) "LVGL_ENV_SIMULATOR=0"

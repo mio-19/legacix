@@ -59,6 +59,11 @@ in
     bootlogd = callPackage ./bootlogd {};
     libusbgx = callPackage ./libusbgx {};
     gadget-tool = callPackage ./gt {}; # upstream this is called "gt", which is very Unix.
+    libevdev = super.libevdev.overrideAttrs ({ nativeBuildInputs ? [], ... }: {
+      nativeBuildInputs = nativeBuildInputs ++ [
+        self.buildPackages.pkg-config
+      ];
+    });
 
     qrtr = callPackage ./qrtr/qrtr.nix { };
     qmic = callPackage ./qrtr/qmic.nix { };

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   asteroidosMetaSmartwatch ? null,
   fossilKernelMsmFossilCw ? null,
   ...
@@ -71,4 +72,9 @@
     rndis = "gsi.rndis";
     adb = "ffs.adb";
   };
+
+  # First Asteroid UI integration step: ship qml-asteroid components.
+  environment.systemPackages = lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? qml-asteroid) [
+    pkgs.asteroidos.qml-asteroid
+  ];
 }
