@@ -1,4 +1,4 @@
-{ pkgs ? (import ../../../pkgs.nix {})
+{ pkgs
 }@args':
 let args = args' // { inherit pkgs; }; in
 

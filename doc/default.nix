@@ -1,4 +1,4 @@
-{ pkgs ? import ../pkgs.nix { } }:
+{ pkgs }:
 if pkgs == null then (builtins.throw "The `pkgs` argument needs to be provided to doc/default.nix") else
 
 let pkgs' = pkgs; in # Break the cycle

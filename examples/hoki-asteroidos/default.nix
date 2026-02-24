@@ -1,4 +1,4 @@
-{ pkgs ? (import ../../pkgs.nix {}) }:
+{ pkgs }:
 
 import ../../lib/eval-with-configuration.nix {
   inherit pkgs;

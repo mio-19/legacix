@@ -1,4 +1,4 @@
-{ pkgs ? import ../pkgs.nix { } }:
+{ pkgs }:
 
 let pkgs' = pkgs; in # Break the cycle
 let
