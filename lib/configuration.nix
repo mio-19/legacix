@@ -12,7 +12,7 @@
 # }
 # ```
 
-{ device ? null }:
+{ device }:
 
 {
   imports =

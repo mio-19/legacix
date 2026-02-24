@@ -27,11 +27,12 @@ let
   first = list: lib.lists.last (lib.lists.reverseList list);
   chopDecimal = f: first (splitString "." (toString f));
 in
-{ partitionID
-# These defaults are assuming small~ish FAT32 filesystems are generated.
-, blockSize ? 512
-, sectorSize ? 512
-, ... } @ args:
+{ partitionID, ... } @ args:
+let
+  # These defaults are assuming small~ish FAT32 filesystems are generated.
+  blockSize = args.blockSize or 512;
+  sectorSize = args.sectorSize or 512;
+in
 makeFilesystem (args // {
   # FAT32 can be used for ESP. Let's make this obvious.
   filesystemType = if args ? filesystemType then args.filesystemType else "FAT32";

@@ -105,7 +105,7 @@ let
         # "device" name for the eval *and* key used for the set.
         name = if system == buildingForSystem then buildingForSystem else "${buildingForSystem}-cross";
         # "device" eval for our dummy device.
-        eval = evalFor (specialConfig {inherit name buildingForSystem system;});
+        eval = evalFor (specialConfig {inherit name buildingForSystem system; config = {};});
         overlay = overlayForEval eval;
       in {
         inherit name;

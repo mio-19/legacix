@@ -1,5 +1,5 @@
 # Verifies that filesystems sized to be unaligned will work.
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }:
 
 let
   inherit (pkgs) imageBuilder;

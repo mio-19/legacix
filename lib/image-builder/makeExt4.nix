@@ -39,9 +39,10 @@ let
 
   minimumSize = imageBuilder.size.MiB 5;
 in
-{ partitionID
-, blockSize ? imageBuilder.size.KiB 4
-, ... } @ args:
+{ partitionID, ... } @ args:
+let
+  blockSize = args.blockSize or (imageBuilder.size.KiB 4);
+in
 makeFilesystem (args // {
   filesystemType = "ext4";
 

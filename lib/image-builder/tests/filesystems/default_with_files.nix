@@ -1,6 +1,6 @@
 # Tests all known filesystems with files.
 # This test helps ensure the basic interface stays stable, and works.
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }:
 
 let
   inherit (pkgs) imageBuilder;

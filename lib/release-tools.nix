@@ -1,6 +1,5 @@
-{ pkgs ? null }: 
+{ pkgs }:
 
-if pkgs == null then (builtins.throw "The `pkgs` argument needs to be provided to release-tools.nix") else
 let
   # Original `evalConfig`
   evalConfig = import "${toString pkgs.path}/nixos/lib/eval-config.nix";
@@ -20,34 +19,30 @@ rec {
   evalWith =
     { modules
     , device
-    , additionalConfiguration ? {}
-    , baseModules ? (
-      (import ../modules/module-list.nix)
-      ++ (import "${toString pkgs.path}/nixos/modules/module-list.nix")
-    )
-  }: evalConfig {
+    , additionalConfiguration
+    , baseModules
+    }:
+    evalConfig {
     # Required for pure flake eval where builtins.currentSystem is unavailable.
     system = pkgs.stdenv.hostPlatform.system;
-    inherit baseModules;
+    baseModules =
+      if baseModules != null then baseModules else
+      (import ../modules/module-list.nix)
+      ++ (import "${toString pkgs.path}/nixos/modules/module-list.nix")
+    ;
     specialArgs = {
-      asteroidosMetaSmartwatch =
-        if pkgs ? asteroidosMetaSmartwatch then pkgs.asteroidosMetaSmartwatch else null;
-      asteroidosAsteroidLauncher =
-        if pkgs ? asteroidosAsteroidLauncher then pkgs.asteroidosAsteroidLauncher else null;
-      asteroidosQmlAsteroid =
-        if pkgs ? asteroidosQmlAsteroid then pkgs.asteroidosQmlAsteroid else null;
-      asteroidosLipstick =
-        if pkgs ? asteroidosLipstick then pkgs.asteroidosLipstick else null;
-      merHybrisBluebinder =
-        if pkgs ? merHybrisBluebinder then pkgs.merHybrisBluebinder else null;
-      merHybrisQt5QpaHwcomposerPlugin =
-        if pkgs ? merHybrisQt5QpaHwcomposerPlugin then pkgs.merHybrisQt5QpaHwcomposerPlugin else null;
-      fossilKernelMsmFossilCw =
-        if pkgs ? fossilKernelMsmFossilCw then pkgs.fossilKernelMsmFossilCw else null;
-      droidianKernelLenovoBronco =
-        if pkgs ? droidianKernelLenovoBronco then pkgs.droidianKernelLenovoBronco else null;
-      droidianAdaptationLenovoBronco =
-        if pkgs ? droidianAdaptationLenovoBronco then pkgs.droidianAdaptationLenovoBronco else null;
+      asteroidosMetaSmartwatch = pkgs.asteroidosMetaSmartwatch;
+      asteroidosMetaAsteroid = pkgs.asteroidosMetaAsteroid;
+      asteroidosAsteroidLauncher = pkgs.asteroidosAsteroidLauncher;
+      asteroidosAsteroidHrm = pkgs.asteroidosAsteroidHrm;
+      asteroidosAsteroidCompass = pkgs.asteroidosAsteroidCompass;
+      asteroidosQmlAsteroid = pkgs.asteroidosQmlAsteroid;
+      asteroidosLipstick = pkgs.asteroidosLipstick;
+      merHybrisBluebinder = pkgs.merHybrisBluebinder;
+      merHybrisQt5QpaHwcomposerPlugin = pkgs.merHybrisQt5QpaHwcomposerPlugin;
+      fossilKernelMsmFossilCw = pkgs.fossilKernelMsmFossilCw;
+      droidianKernelLenovoBronco = pkgs.droidianKernelLenovoBronco;
+      droidianAdaptationLenovoBronco = pkgs.droidianAdaptationLenovoBronco;
     };
     modules =
       (if device ? special
@@ -65,7 +60,7 @@ rec {
       inherit (pkgs) lib;
     in
     rec {
-      specialConfig = {name, buildingForSystem, system, config ? {}}: {
+      specialConfig = {name, buildingForSystem, system, config}: {
         special = true;
         inherit name;
         config = lib.mkMerge [
@@ -94,6 +89,8 @@ rec {
       evalWithConfiguration = configuration: device: evalWith {
         modules = [ configuration ];
         inherit device;
+        additionalConfiguration = {};
+        baseModules = null;
       };
 
       # The simplest eval for a device, with an empty configuration.

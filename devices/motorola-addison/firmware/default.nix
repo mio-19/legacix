@@ -2,7 +2,7 @@
 , runCommand
 , fetchFromGitHub
 , fetchurl
-, modem ? builtins.throw ''
+, modem
 
     Your attention is required:
     ---------------------------

@@ -1,5 +1,5 @@
-{ device ? null
-, configuration ? null
+{ device
+, configuration
 , pkgs
 }@args':
 
@@ -33,6 +33,7 @@ in
 
 import ../lib/eval-with-configuration.nix (args // {
   configuration = defaultConfiguration;
+  additionalConfiguration = {};
   additionalHelpInstructions = ''
     You can build the `-A outputs.default` attribute to build an empty and
     un-configured image. That image can be configured using `local.nix`.

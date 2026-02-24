@@ -4,6 +4,7 @@ import ../../lib/eval-with-configuration.nix {
   inherit pkgs;
   device = "lenovo-bronco";
   configuration = [ ];
+  additionalConfiguration = {};
   additionalHelpInstructions = ''
     Build Lenovo ThinkPhone (bronco) images:
 

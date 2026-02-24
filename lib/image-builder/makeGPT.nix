@@ -25,11 +25,12 @@ in
   name
   , partitions
   , diskID
-  , headerHole ? 0 # in bytes
-  , postProcess ? null
-}:
+  , ...
+}@args:
 
 let
+  headerHole = args.headerHole or 0; # in bytes
+  postProcess = args.postProcess or null;
   _name = name;
 
   eachPart = partitions: fn: (

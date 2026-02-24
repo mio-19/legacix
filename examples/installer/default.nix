@@ -1,10 +1,11 @@
-{ device ? null
+{ device
 , pkgs
 }@args':
 let args = args' // { inherit pkgs; }; in
 
 import ../../lib/eval-with-configuration.nix (args // {
   configuration = [ (import ./configuration.nix) ];
+  additionalConfiguration = {};
   additionalHelpInstructions = ''
     The build output to choose depends on the target.
 

@@ -28,6 +28,8 @@ let
   dummyEval = evalWith {
     device = (dummyConfig "aarch64-linux");
     modules = [];
+    additionalConfiguration = {};
+    baseModules = null;
   };
 
   optionsJSON = (nixosOptionsDoc { options = dummyEval.options; }).optionsJSON;

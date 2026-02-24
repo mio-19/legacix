@@ -1,5 +1,5 @@
 # Ensures we can fit stuff in an ext4 image.
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }:
 
 let
   inherit (pkgs) imageBuilder;

@@ -1,7 +1,9 @@
-{ pkgs, config, droidianKernelLenovoBronco, ... }:
+{ pkgs, config, droidianKernelLenovoBronco, droidianAdaptationLenovoBronco, ... }:
 
 let
-  adaptation = pkgs.callPackage ./adaptation { };
+  adaptation = pkgs.callPackage ./adaptation {
+    inherit droidianAdaptationLenovoBronco;
+  };
 in
 {
   mobile.device.name = "lenovo-bronco";

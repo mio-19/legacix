@@ -5,7 +5,7 @@
 , pkg-config
 , qt5
 , asteroidosAsteroidHrm
-, asteroidos ? {}
+, qmlAsteroid
 }:
 
 stdenv.mkDerivation rec {
@@ -26,10 +26,11 @@ stdenv.mkDerivation rec {
     qt5.qtdeclarative
     qt5.qtsensors
     qt5.qtsvg
-  ] ++ lib.optionals (asteroidos ? qml-asteroid) [ asteroidos.qml-asteroid ];
+    qmlAsteroid
+  ];
 
   cmakeFlags = [
-    "-DCMAKE_PREFIX_PATH=${if (asteroidos ? qml-asteroid) then asteroidos.qml-asteroid else ""}"
+    "-DCMAKE_PREFIX_PATH=${qmlAsteroid}"
   ];
 
   meta = with lib; {

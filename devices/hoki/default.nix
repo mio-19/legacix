@@ -1,11 +1,60 @@
 {
   pkgs,
-  lib,
-  asteroidosMetaSmartwatch ? null,
-  fossilKernelMsmFossilCw ? null,
+  asteroidosMetaSmartwatch,
+  asteroidosMetaAsteroid,
+  asteroidosAsteroidHrm,
+  asteroidosAsteroidCompass,
+  asteroidosQmlAsteroid,
+  merHybrisBluebinder,
+  merHybrisQt5QpaHwcomposerPlugin,
+  fossilKernelMsmFossilCw,
   ...
 }:
 
+let
+  asteroidos =
+    let
+      qmlAsteroid = pkgs.callPackage ../../overlay/asteroidos/qml-asteroid {
+        inherit asteroidosQmlAsteroid;
+      };
+    in
+    {
+      qml-asteroid = qmlAsteroid;
+      bluebinder = pkgs.callPackage ../../overlay/asteroidos/bluebinder {
+        inherit merHybrisBluebinder;
+      };
+      "qt5-qpa-hwcomposer-plugin" = pkgs.callPackage ../../overlay/asteroidos/qt5-qpa-hwcomposer-plugin {
+        inherit merHybrisQt5QpaHwcomposerPlugin;
+      };
+      hoki-underclock = pkgs.callPackage ../../overlay/asteroidos/hoki-underclock {
+        inherit asteroidosMetaSmartwatch;
+      };
+      "android-init-hoki" = pkgs.callPackage ../../overlay/asteroidos/android-init-hoki {
+        inherit asteroidosMetaSmartwatch asteroidosMetaAsteroid;
+      };
+      "udev-droid-system" = pkgs.callPackage ../../overlay/asteroidos/udev-droid-system {
+        inherit asteroidosMetaAsteroid;
+      };
+      "swclock-offset" = pkgs.callPackage ../../overlay/asteroidos/swclock-offset { };
+      "hoki-launcher-config" = pkgs.callPackage ../../overlay/asteroidos/hoki-launcher-config {
+        inherit asteroidosMetaSmartwatch;
+      };
+      "hoki-libncicore-config" = pkgs.callPackage ../../overlay/asteroidos/hoki-libncicore-config {
+        inherit asteroidosMetaSmartwatch;
+      };
+      "hoki-ngfd-config" = pkgs.callPackage ../../overlay/asteroidos/hoki-ngfd-config {
+        inherit asteroidosMetaSmartwatch;
+      };
+      "asteroid-hrm" = pkgs.callPackage ../../overlay/asteroidos/asteroid-hrm {
+        inherit asteroidosAsteroidHrm;
+        qmlAsteroid = qmlAsteroid;
+      };
+      "asteroid-compass" = pkgs.callPackage ../../overlay/asteroidos/asteroid-compass {
+        inherit asteroidosAsteroidCompass;
+        qmlAsteroid = qmlAsteroid;
+      };
+    };
+in
 {
   mobile.device.name = "hoki";
   mobile.device.identity = {
@@ -73,58 +122,38 @@
     adb = "ffs.adb";
   };
 
-  environment.systemPackages =
-    lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? qml-asteroid) [
-      pkgs.asteroidos.qml-asteroid
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? bluebinder) [
-      pkgs.asteroidos.bluebinder
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "qt5-qpa-hwcomposer-plugin") [
-      pkgs.asteroidos."qt5-qpa-hwcomposer-plugin"
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? hoki-underclock) [
-      pkgs.asteroidos.hoki-underclock
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "android-init-hoki") [
-      pkgs.asteroidos."android-init-hoki"
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "udev-droid-system") [
-      pkgs.asteroidos."udev-droid-system"
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "swclock-offset") [
-      pkgs.asteroidos."swclock-offset"
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "asteroid-hrm") [
-      pkgs.asteroidos."asteroid-hrm"
-    ]
-    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "asteroid-compass") [
-      pkgs.asteroidos."asteroid-compass"
-    ]
-  ;
-
-  environment.etc = lib.mkMerge [
-    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? hoki-launcher-config) {
-      "default/asteroid-launcher".source = "${pkgs.asteroidos.hoki-launcher-config}/etc/default/asteroid-launcher";
-    })
-    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "hoki-libncicore-config") {
-      "libncicore.conf".source = "${pkgs.asteroidos."hoki-libncicore-config"}/etc/libncicore.conf";
-    })
-    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "hoki-ngfd-config") {
-      "ngfd/plugins.d/51-ffmemless.ini".source = "${pkgs.asteroidos."hoki-ngfd-config"}/share/ngfd/plugins.d/51-ffmemless.ini";
-    })
-    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "android-init-hoki") {
-      "android-init/plat_property_contexts".source = "${pkgs.asteroidos."android-init-hoki"}/etc/android-init/plat_property_contexts";
-      "android-init/nonplat_property_contexts".source = "${pkgs.asteroidos."android-init-hoki"}/etc/android-init/nonplat_property_contexts";
-      "android-init/init.rc".source = "${pkgs.asteroidos."android-init-hoki"}/init.rc";
-    })
+  environment.systemPackages = [
+    asteroidos.qml-asteroid
+    asteroidos.bluebinder
+    asteroidos."qt5-qpa-hwcomposer-plugin"
+    asteroidos.hoki-underclock
+    asteroidos."android-init-hoki"
+    asteroidos."udev-droid-system"
+    asteroidos."swclock-offset"
+    asteroidos."asteroid-hrm"
+    asteroidos."asteroid-compass"
+    pkgs.connman
+    pkgs.ofono
+    pkgs.geoclue2
+    pkgs.pulseaudio
+    pkgs.openssh
+    pkgs.bluez
   ];
 
-  services.udev.packages = lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "udev-droid-system") [
-    pkgs.asteroidos."udev-droid-system"
+  environment.etc = {
+    "default/asteroid-launcher".source = "${asteroidos."hoki-launcher-config"}/etc/default/asteroid-launcher";
+    "libncicore.conf".source = "${asteroidos."hoki-libncicore-config"}/etc/libncicore.conf";
+    "ngfd/plugins.d/51-ffmemless.ini".source = "${asteroidos."hoki-ngfd-config"}/share/ngfd/plugins.d/51-ffmemless.ini";
+    "android-init/plat_property_contexts".source = "${asteroidos."android-init-hoki"}/etc/android-init/plat_property_contexts";
+    "android-init/nonplat_property_contexts".source = "${asteroidos."android-init-hoki"}/etc/android-init/nonplat_property_contexts";
+    "android-init/init.rc".source = "${asteroidos."android-init-hoki"}/init.rc";
+  };
+
+  services.udev.packages = [
+    asteroidos."udev-droid-system"
   ];
 
-  systemd.services.bluebinder = lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? bluebinder) {
+  systemd.services.bluebinder = {
     description = "Simple proxy for Android binder Bluetooth through vhci";
     after = [ "droid-hal-init.service" ];
     before = [ "bluetooth.service" ];
@@ -132,9 +161,9 @@
     serviceConfig = {
       Type = "notify";
       EnvironmentFile = "-/var/lib/environment/bluebinder/*.conf";
-      ExecStartPre = "${pkgs.asteroidos.bluebinder}/libexec/bluebinder/bluebinder_wait.sh";
-      ExecStart = "${pkgs.asteroidos.bluebinder}/bin/bluebinder";
-      ExecStartPost = "${pkgs.asteroidos.bluebinder}/libexec/bluebinder/bluebinder_post.sh";
+      ExecStartPre = "${asteroidos.bluebinder}/libexec/bluebinder/bluebinder_wait.sh";
+      ExecStart = "${asteroidos.bluebinder}/bin/bluebinder";
+      ExecStartPost = "${asteroidos.bluebinder}/libexec/bluebinder/bluebinder_post.sh";
       Restart = "always";
       TimeoutStartSec = "60";
       CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
@@ -148,17 +177,17 @@
     };
   };
 
-  systemd.services.underclock = lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? hoki-underclock) {
+  systemd.services.underclock = {
     description = "Underclock CPU/GPU to reduce hoki power usage";
     wantedBy = [ "basic.target" ];
     serviceConfig = {
       Type = "oneshot";
       ExecStartPre = "${pkgs.coreutils}/bin/sleep 20";
-      ExecStart = "${pkgs.asteroidos.hoki-underclock}/bin/underclock";
+      ExecStart = "${asteroidos.hoki-underclock}/bin/underclock";
     };
   };
 
-  systemd.services.android-init = lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "android-init-hoki") {
+  systemd.services.android-init = {
     description = "/system/bin/init compatibility service for vendor daemons";
     after = [ "local-fs.target" ];
     before = [ "basic.target" "network.target" "bluetooth.service" ];

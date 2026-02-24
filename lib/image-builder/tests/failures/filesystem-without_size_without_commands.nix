@@ -1,5 +1,5 @@
 # Expect: { "status": 1, "grep": "Either a size or populateCommands needs to be given to build a filesystem." }
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }:
 
 let
   inherit (pkgs) imageBuilder;

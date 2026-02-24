@@ -120,15 +120,20 @@
           fossilKernelMsmFossilCw = fossil-kernel-msm-fossil-cw;
           droidianKernelLenovoBronco = droidian-kernel-lenovo-bronco;
           droidianAdaptationLenovoBronco = droidian-adaptation-lenovo-bronco;
-          asteroidos = {
-            qml-asteroid = final.callPackage ./overlay/asteroidos/qml-asteroid {
-              asteroidosQmlAsteroid = asteroidos-qml-asteroid;
-            };
+          asteroidos =
+            let
+              qmlAsteroidPkg = final.callPackage ./overlay/asteroidos/qml-asteroid {
+                asteroidosQmlAsteroid = asteroidos-qml-asteroid;
+              };
+            in {
+            qml-asteroid = qmlAsteroidPkg;
             asteroid-hrm = final.callPackage ./overlay/asteroidos/asteroid-hrm {
               asteroidosAsteroidHrm = asteroidos-asteroid-hrm;
+              qmlAsteroid = qmlAsteroidPkg;
             };
             asteroid-compass = final.callPackage ./overlay/asteroidos/asteroid-compass {
               asteroidosAsteroidCompass = asteroidos-asteroid-compass;
+              qmlAsteroid = qmlAsteroidPkg;
             };
             bluebinder = final.callPackage ./overlay/asteroidos/bluebinder {
               merHybrisBluebinder = mer-hybris-bluebinder;
@@ -179,12 +184,16 @@
 
       # Expose evaluated sets as flake outputs.
       legacyPackages = forAllSystems ({ pkgs, ... }: {
-        mobile = import ./legacy/default.nix { inherit pkgs; };
+        mobile = import ./legacy/default.nix {
+          inherit pkgs;
+          device = null;
+          configuration = null;
+        };
         examples = {
-          hello = import ./examples/hello { inherit pkgs; };
-          phosh = import ./examples/phosh { inherit pkgs; };
-          plasma-mobile = import ./examples/plasma-mobile { inherit pkgs; };
-          installer = import ./examples/installer { inherit pkgs; };
+          hello = import ./examples/hello { inherit pkgs; device = null; };
+          phosh = import ./examples/phosh { inherit pkgs; device = null; };
+          plasma-mobile = import ./examples/plasma-mobile { inherit pkgs; device = null; };
+          installer = import ./examples/installer { inherit pkgs; device = null; };
           hoki-asteroidos = import ./examples/hoki-asteroidos { inherit pkgs; };
           lenovo-bronco = import ./examples/lenovo-bronco { inherit pkgs; };
         };

@@ -8,27 +8,28 @@ in
 
 {
   name
-  # Size (in bytes) the filesystem image will be given.
-  # When size is not given, it is assumed that `populateCommands` will populate
-  # the filesystem, and the size will be derived (see computeMinimalSize).
-  , size ? null
-
-  # The populate commands are executed in a subshell. The CWD at the star is the
-  # public API to know where to add files that will be added to the image.
-  , populateCommands ? null
-
   # Used with the assumption that files are rounded up to blockSize increments.
   , blockSize
-
-  # Additional commands to compute a required increase in size to fit files.
-  , computeMinimalSize ? null
-
-  # When automatic sizing is used, additional amount of bytes to pad the image by.
-  , extraPadding ? 0
   , ...
 } @ args:
 
-assert lib.asserts.assertMsg
+let
+  # Size (in bytes) the filesystem image will be given.
+  # When size is not given, it is assumed that `populateCommands` will populate
+  # the filesystem, and the size will be derived (see computeMinimalSize).
+  size = args.size or null;
+
+  # The populate commands are executed in a subshell. The CWD at the start is the
+  # public API to know where to add files that will be added to the image.
+  populateCommands = args.populateCommands or null;
+
+  # Additional commands to compute a required increase in size to fit files.
+  computeMinimalSize = args.computeMinimalSize or null;
+
+  # When automatic sizing is used, additional amount of bytes to pad the image by.
+  extraPadding = args.extraPadding or 0;
+in
+assert assertMsg
   (size !=null || populateCommands != null)
   "Either a size or populateCommands needs to be given to build a filesystem.";
 

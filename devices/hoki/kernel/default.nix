@@ -1,29 +1,11 @@
 {
   mobile-nixos
-, asteroidosMetaSmartwatch ? null
-, fossilKernelMsmFossilCw ? null
+, asteroidosMetaSmartwatch
+, fossilKernelMsmFossilCw
 , ...
 }:
 
-let
-  _ = if asteroidosMetaSmartwatch == null then
-    throw ''
-      devices/hoki requires the flake input asteroidos-meta-smartwatch.
-      Use this repository through flake outputs.
-    ''
-  else
-    null;
-
-  __ = if fossilKernelMsmFossilCw == null then
-    throw ''
-      devices/hoki requires the flake input fossil-kernel-msm-fossil-cw.
-      Use this repository through flake outputs.
-    ''
-  else
-    null;
-
-  asteroidosHokiKernel = "${asteroidosMetaSmartwatch}/meta-hoki/recipes-kernel/linux";
-in
+let asteroidosHokiKernel = "${asteroidosMetaSmartwatch}/meta-hoki/recipes-kernel/linux"; in
 mobile-nixos.kernel-builder-gcc8 {
   version = "4.14";
   modDirVersion = "4.14.206";

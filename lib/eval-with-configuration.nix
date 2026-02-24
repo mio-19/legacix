@@ -4,16 +4,15 @@
 # This is meant for use internally by Mobile NixOS, the interface here
 # should not be assumed to be *stable*.
 {
-  pkgs ? null
+  pkgs
   # The identifier of the device this should be built for.
   # (This gets massaged later on)
-, device ? null
+, device
 , configuration
   # Internally used to tack on configuration by release.nix
-, additionalConfiguration ? {}
-, additionalHelpInstructions ? ""
+, additionalConfiguration
+, additionalHelpInstructions
 }:
-if pkgs == null then (builtins.throw "The `pkgs` argument needs to be provided to eval-with-configuration.nix") else
 let
   inherit (pkgs.lib) optionalString strings;
   inherit (strings) concatStringsSep stringAsChars;
@@ -33,6 +32,7 @@ let
     device = final_device;
     modules = configuration;
     inherit additionalConfiguration;
+    baseModules = null;
   };
 
   # Makes a mostly useless header.

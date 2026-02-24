@@ -37,4 +37,5 @@ import ../../lib/eval-with-configuration.nix {
       - asteroidos.ext4
       - boot.img
   '';
+  additionalConfiguration = {};
 }

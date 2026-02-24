@@ -9,6 +9,8 @@ let
       ../../hello/configuration.nix
       ./configuration.nix
     ]; } ];
+    additionalConfiguration = {};
+    additionalHelpInstructions = "";
   });
 in
   system-build.build.vm
