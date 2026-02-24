@@ -1,0 +1,11 @@
+= Lenovo ThinkPhone by Motorola (bronco)
+include::_support/common.inc[]
+
+== Device-specific notes
+
+This target follows a vendor-kernel plus Android userspace compatibility approach.
+
+Kernel source and adaptation data are consumed from Droidian upstream repositories through flake inputs:
+
+- `droidian-devices/linux-android-lenovo-bronco`
+- `droidian-devices/adaptation-droidian-bronco`

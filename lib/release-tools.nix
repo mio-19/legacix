@@ -44,6 +44,10 @@ rec {
         if pkgs ? merHybrisQt5QpaHwcomposerPlugin then pkgs.merHybrisQt5QpaHwcomposerPlugin else null;
       fossilKernelMsmFossilCw =
         if pkgs ? fossilKernelMsmFossilCw then pkgs.fossilKernelMsmFossilCw else null;
+      droidianKernelLenovoBronco =
+        if pkgs ? droidianKernelLenovoBronco then pkgs.droidianKernelLenovoBronco else null;
+      droidianAdaptationLenovoBronco =
+        if pkgs ? droidianAdaptationLenovoBronco then pkgs.droidianAdaptationLenovoBronco else null;
     };
     modules =
       (if device ? special

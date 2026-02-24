@@ -114,6 +114,38 @@
         "type": "github"
       }
     },
+    "droidian-adaptation-lenovo-bronco": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765675514,
+        "narHash": "sha256-GD0yJnKXBhwYI4rwlxxq4XhtdR61Jo+FcYm+haC+odQ=",
+        "owner": "droidian-devices",
+        "repo": "adaptation-droidian-bronco",
+        "rev": "cae81c1df119595ce340a25c39ca42a31a162086",
+        "type": "github"
+      },
+      "original": {
+        "owner": "droidian-devices",
+        "repo": "adaptation-droidian-bronco",
+        "type": "github"
+      }
+    },
+    "droidian-kernel-lenovo-bronco": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769290262,
+        "narHash": "sha256-waLjUlm944WZAuODfji8sJBdnIzPTraCNxozORl4hd8=",
+        "owner": "droidian-devices",
+        "repo": "linux-android-lenovo-bronco",
+        "rev": "051a9a15805146d91fa833c25a65af018ef5671a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "droidian-devices",
+        "repo": "linux-android-lenovo-bronco",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -204,6 +236,8 @@
         "asteroidos-meta-asteroid": "asteroidos-meta-asteroid",
         "asteroidos-meta-smartwatch": "asteroidos-meta-smartwatch",
         "asteroidos-qml-asteroid": "asteroidos-qml-asteroid",
+        "droidian-adaptation-lenovo-bronco": "droidian-adaptation-lenovo-bronco",
+        "droidian-kernel-lenovo-bronco": "droidian-kernel-lenovo-bronco",
         "flake-compat": "flake-compat",
         "fossil-kernel-msm-fossil-cw": "fossil-kernel-msm-fossil-cw",
         "mer-hybris-bluebinder": "mer-hybris-bluebinder",

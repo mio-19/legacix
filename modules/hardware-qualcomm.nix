@@ -67,6 +67,11 @@ in
       default = false;
       description = "enable when SOC is SM6125";
     };
+    hardware.socs.qualcomm-sm8475.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "enable when SOC is SM8475";
+    };
   };
 
   config = mkMerge [
@@ -127,6 +132,12 @@ in
       mobile = mkIf cfg.qualcomm-sm6125.enable {
         system.system = "aarch64-linux";
         quirks.fb-refresher.enable = true;
+      };
+    }
+    {
+      mobile = mkIf cfg.qualcomm-sm8475.enable {
+        system.system = "aarch64-linux";
+        boot.boot-control.enable = mkDefault true;
       };
     }
     {

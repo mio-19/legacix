@@ -57,6 +57,16 @@
       url = "github:fossil-engineering/kernel-msm-fossil-cw?ref=fossil-android-msm-hoki-lw1.2-4.14";
       flake = false;
     };
+
+    droidian-kernel-lenovo-bronco = {
+      url = "github:droidian-devices/linux-android-lenovo-bronco";
+      flake = false;
+    };
+
+    droidian-adaptation-lenovo-bronco = {
+      url = "github:droidian-devices/adaptation-droidian-bronco";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -72,6 +82,8 @@
     mer-hybris-bluebinder,
     mer-hybris-qt5-qpa-hwcomposer-plugin,
     fossil-kernel-msm-fossil-cw,
+    droidian-kernel-lenovo-bronco,
+    droidian-adaptation-lenovo-bronco,
     ...
   }:
     let
@@ -106,6 +118,8 @@
           merHybrisBluebinder = mer-hybris-bluebinder;
           merHybrisQt5QpaHwcomposerPlugin = mer-hybris-qt5-qpa-hwcomposer-plugin;
           fossilKernelMsmFossilCw = fossil-kernel-msm-fossil-cw;
+          droidianKernelLenovoBronco = droidian-kernel-lenovo-bronco;
+          droidianAdaptationLenovoBronco = droidian-adaptation-lenovo-bronco;
           asteroidos = {
             qml-asteroid = final.callPackage ./overlay/asteroidos/qml-asteroid {
               asteroidosQmlAsteroid = asteroidos-qml-asteroid;
@@ -158,6 +172,8 @@
           mer-hybris-bluebinder
           mer-hybris-qt5-qpa-hwcomposer-plugin
           fossil-kernel-msm-fossil-cw
+          droidian-kernel-lenovo-bronco
+          droidian-adaptation-lenovo-bronco
         ;
       };
 
@@ -170,6 +186,7 @@
           plasma-mobile = import ./examples/plasma-mobile { inherit pkgs; };
           installer = import ./examples/installer { inherit pkgs; };
           hoki-asteroidos = import ./examples/hoki-asteroidos { inherit pkgs; };
+          lenovo-bronco = import ./examples/lenovo-bronco { inherit pkgs; };
         };
 
         # Keep source available in per-system package space for convenience.
@@ -184,6 +201,8 @@
           mer-hybris-bluebinder
           mer-hybris-qt5-qpa-hwcomposer-plugin
           fossil-kernel-msm-fossil-cw
+          droidian-kernel-lenovo-bronco
+          droidian-adaptation-lenovo-bronco
         ;
       });
 
