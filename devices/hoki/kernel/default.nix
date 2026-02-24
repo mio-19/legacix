@@ -2,6 +2,7 @@
   mobile-nixos
 , asteroidosMetaSmartwatch
 , fossilKernelMsmFossilCw
+, cpio
 , ...
 }:
 
@@ -26,4 +27,5 @@ mobile-nixos.kernel-builder-gcc8 {
   enableRemovingWerror = true;
   isModular = false;
   isImageGzDtb = true;
+  nativeBuildInputs = [ cpio ];
 }

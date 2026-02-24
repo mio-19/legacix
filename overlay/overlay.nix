@@ -106,6 +106,18 @@ in
       ];
     });
 
+    sbc = super.sbc.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        # GCC/C23 treats empty parameter lists as no-argument functions.
+        # Upstream ARMv6 code calls naked asm helpers with args; cast explicitly.
+        substituteInPlace sbc/sbc_primitives_armv6.c \
+          --replace-fail 'sbc_analyze_eight_armv6(x, out, analysis_consts_fixed8_simd_odd);' \
+            '((void (*)(int16_t *, int32_t *, const FIXED_T*))sbc_analyze_eight_armv6)(x, out, analysis_consts_fixed8_simd_odd);' \
+          --replace-fail 'sbc_analyze_eight_armv6(x, out, analysis_consts_fixed8_simd_even);' \
+            '((void (*)(int16_t *, int32_t *, const FIXED_T*))sbc_analyze_eight_armv6)(x, out, analysis_consts_fixed8_simd_even);'
+      '';
+    });
+
 
     # Things specific to mobile-nixos.
     # Not necessarily internals, but they probably won't go into <nixpkgs>.
