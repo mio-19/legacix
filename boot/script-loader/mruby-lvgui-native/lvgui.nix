@@ -110,6 +110,10 @@ in
     # (In reality this should be part of a ./configure step or something similar.)
     postPatch = ''
       sed -i"" '/^#define LV_CONF_H/a #define LVGL_ENV_SIMULATOR ${if withSimulator then "1" else "0"}' lv_conf.h
+
+      # Newer lv_freetype headers expose lv_freetype_init() without parameters.
+      # Keep lvgui source compatible by normalizing old call forms.
+      sed -E -i 's/lv_freetype_init\([^)]*\)/lv_freetype_init()/g' hal.c
     '';
 
     nativeBuildInputs = [

@@ -13,8 +13,23 @@
       flake = false;
     };
 
+    asteroidos-meta-asteroid = {
+      url = "github:AsteroidOS/meta-asteroid";
+      flake = false;
+    };
+
     asteroidos-asteroid-launcher = {
       url = "github:AsteroidOS/asteroid-launcher";
+      flake = false;
+    };
+
+    asteroidos-asteroid-hrm = {
+      url = "git+https://github.com/AsteroidOS/asteroid-hrm.git?ref=master";
+      flake = false;
+    };
+
+    asteroidos-asteroid-compass = {
+      url = "git+https://github.com/AsteroidOS/asteroid-compass.git?ref=master";
       flake = false;
     };
 
@@ -48,7 +63,10 @@
     self,
     nixpkgs,
     asteroidos-meta-smartwatch,
+    asteroidos-meta-asteroid,
     asteroidos-asteroid-launcher,
+    asteroidos-asteroid-hrm,
+    asteroidos-asteroid-compass,
     asteroidos-qml-asteroid,
     asteroidos-lipstick,
     mer-hybris-bluebinder,
@@ -79,7 +97,10 @@
         base // {
           # Expose AsteroidOS-related source inputs in pkgs for callPackage reuse.
           asteroidosMetaSmartwatch = asteroidos-meta-smartwatch;
+          asteroidosMetaAsteroid = asteroidos-meta-asteroid;
           asteroidosAsteroidLauncher = asteroidos-asteroid-launcher;
+          asteroidosAsteroidHrm = asteroidos-asteroid-hrm;
+          asteroidosAsteroidCompass = asteroidos-asteroid-compass;
           asteroidosQmlAsteroid = asteroidos-qml-asteroid;
           asteroidosLipstick = asteroidos-lipstick;
           merHybrisBluebinder = mer-hybris-bluebinder;
@@ -89,6 +110,38 @@
             qml-asteroid = final.callPackage ./overlay/asteroidos/qml-asteroid {
               asteroidosQmlAsteroid = asteroidos-qml-asteroid;
             };
+            asteroid-hrm = final.callPackage ./overlay/asteroidos/asteroid-hrm {
+              asteroidosAsteroidHrm = asteroidos-asteroid-hrm;
+            };
+            asteroid-compass = final.callPackage ./overlay/asteroidos/asteroid-compass {
+              asteroidosAsteroidCompass = asteroidos-asteroid-compass;
+            };
+            bluebinder = final.callPackage ./overlay/asteroidos/bluebinder {
+              merHybrisBluebinder = mer-hybris-bluebinder;
+            };
+            "qt5-qpa-hwcomposer-plugin" = final.callPackage ./overlay/asteroidos/qt5-qpa-hwcomposer-plugin {
+              merHybrisQt5QpaHwcomposerPlugin = mer-hybris-qt5-qpa-hwcomposer-plugin;
+            };
+            hoki-launcher-config = final.callPackage ./overlay/asteroidos/hoki-launcher-config {
+              asteroidosMetaSmartwatch = asteroidos-meta-smartwatch;
+            };
+            hoki-underclock = final.callPackage ./overlay/asteroidos/hoki-underclock {
+              asteroidosMetaSmartwatch = asteroidos-meta-smartwatch;
+            };
+            "android-init-hoki" = final.callPackage ./overlay/asteroidos/android-init-hoki {
+              asteroidosMetaSmartwatch = asteroidos-meta-smartwatch;
+              asteroidosMetaAsteroid = asteroidos-meta-asteroid;
+            };
+            "udev-droid-system" = final.callPackage ./overlay/asteroidos/udev-droid-system {
+              asteroidosMetaAsteroid = asteroidos-meta-asteroid;
+            };
+            "swclock-offset" = final.callPackage ./overlay/asteroidos/swclock-offset { };
+            "hoki-ngfd-config" = final.callPackage ./overlay/asteroidos/hoki-ngfd-config {
+              asteroidosMetaSmartwatch = asteroidos-meta-smartwatch;
+            };
+            "hoki-libncicore-config" = final.callPackage ./overlay/asteroidos/hoki-libncicore-config {
+              asteroidosMetaSmartwatch = asteroidos-meta-smartwatch;
+            };
           };
         };
 
@@ -96,7 +149,10 @@
       sources = {
         inherit
           asteroidos-meta-smartwatch
+          asteroidos-meta-asteroid
           asteroidos-asteroid-launcher
+          asteroidos-asteroid-hrm
+          asteroidos-asteroid-compass
           asteroidos-qml-asteroid
           asteroidos-lipstick
           mer-hybris-bluebinder
@@ -119,7 +175,10 @@
         # Keep source available in per-system package space for convenience.
         inherit
           asteroidos-meta-smartwatch
+          asteroidos-meta-asteroid
           asteroidos-asteroid-launcher
+          asteroidos-asteroid-hrm
+          asteroidos-asteroid-compass
           asteroidos-qml-asteroid
           asteroidos-lipstick
           mer-hybris-bluebinder

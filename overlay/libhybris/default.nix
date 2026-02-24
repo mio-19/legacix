@@ -32,6 +32,14 @@ stdenv.mkDerivation {
     ++ lib.optional useLegacyProperties ./0001-HACK-Rely-on-legacy-properties-rather-than-native-pr.patch
   ;
 
+  postPatch = ''
+    # GCC 14+/15 rejects implicit pointer->int conversion in old linker glue.
+    substituteInPlace common/jb/linker.c \
+      --replace-fail "sym_addr = _get_hooked_symbol(sym_name, si->name);" "sym_addr = (unsigned)_get_hooked_symbol(sym_name, si->name);" \
+      --replace-fail "if (sym_addr != NULL) {" "if (sym_addr != 0) {" \
+      --replace-fail "if(sym_addr == NULL)" "if(sym_addr == 0)"
+  '';
+
   postAutoreconf = ''
     substituteInPlace configure \
       --replace "/usr/bin/file" "${file}/bin/file"

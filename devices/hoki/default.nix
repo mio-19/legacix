@@ -73,8 +73,100 @@
     adb = "ffs.adb";
   };
 
-  # First Asteroid UI integration step: ship qml-asteroid components.
-  environment.systemPackages = lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? qml-asteroid) [
-    pkgs.asteroidos.qml-asteroid
+  environment.systemPackages =
+    lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? qml-asteroid) [
+      pkgs.asteroidos.qml-asteroid
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? bluebinder) [
+      pkgs.asteroidos.bluebinder
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "qt5-qpa-hwcomposer-plugin") [
+      pkgs.asteroidos."qt5-qpa-hwcomposer-plugin"
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? hoki-underclock) [
+      pkgs.asteroidos.hoki-underclock
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "android-init-hoki") [
+      pkgs.asteroidos."android-init-hoki"
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "udev-droid-system") [
+      pkgs.asteroidos."udev-droid-system"
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "swclock-offset") [
+      pkgs.asteroidos."swclock-offset"
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "asteroid-hrm") [
+      pkgs.asteroidos."asteroid-hrm"
+    ]
+    ++ lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "asteroid-compass") [
+      pkgs.asteroidos."asteroid-compass"
+    ]
+  ;
+
+  environment.etc = lib.mkMerge [
+    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? hoki-launcher-config) {
+      "default/asteroid-launcher".source = "${pkgs.asteroidos.hoki-launcher-config}/etc/default/asteroid-launcher";
+    })
+    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "hoki-libncicore-config") {
+      "libncicore.conf".source = "${pkgs.asteroidos."hoki-libncicore-config"}/etc/libncicore.conf";
+    })
+    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "hoki-ngfd-config") {
+      "ngfd/plugins.d/51-ffmemless.ini".source = "${pkgs.asteroidos."hoki-ngfd-config"}/share/ngfd/plugins.d/51-ffmemless.ini";
+    })
+    (lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "android-init-hoki") {
+      "android-init/plat_property_contexts".source = "${pkgs.asteroidos."android-init-hoki"}/etc/android-init/plat_property_contexts";
+      "android-init/nonplat_property_contexts".source = "${pkgs.asteroidos."android-init-hoki"}/etc/android-init/nonplat_property_contexts";
+      "android-init/init.rc".source = "${pkgs.asteroidos."android-init-hoki"}/init.rc";
+    })
   ];
+
+  services.udev.packages = lib.optionals (pkgs ? asteroidos && pkgs.asteroidos ? "udev-droid-system") [
+    pkgs.asteroidos."udev-droid-system"
+  ];
+
+  systemd.services.bluebinder = lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? bluebinder) {
+    description = "Simple proxy for Android binder Bluetooth through vhci";
+    after = [ "droid-hal-init.service" ];
+    before = [ "bluetooth.service" ];
+    wantedBy = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "notify";
+      EnvironmentFile = "-/var/lib/environment/bluebinder/*.conf";
+      ExecStartPre = "${pkgs.asteroidos.bluebinder}/libexec/bluebinder/bluebinder_wait.sh";
+      ExecStart = "${pkgs.asteroidos.bluebinder}/bin/bluebinder";
+      ExecStartPost = "${pkgs.asteroidos.bluebinder}/libexec/bluebinder/bluebinder_post.sh";
+      Restart = "always";
+      TimeoutStartSec = "60";
+      CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
+      DeviceAllow = [ "/dev/hwbinder rw" "/dev/vhci rw" "/dev/rfkill r" ];
+      DevicePolicy = "strict";
+      NoNewPrivileges = true;
+      RestrictAddressFamilies = "AF_BLUETOOTH";
+      PrivateTmp = true;
+      ProtectHome = true;
+      ProtectSystem = "full";
+    };
+  };
+
+  systemd.services.underclock = lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? hoki-underclock) {
+    description = "Underclock CPU/GPU to reduce hoki power usage";
+    wantedBy = [ "basic.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 20";
+      ExecStart = "${pkgs.asteroidos.hoki-underclock}/bin/underclock";
+    };
+  };
+
+  systemd.services.android-init = lib.mkIf (pkgs ? asteroidos && pkgs.asteroidos ? "android-init-hoki") {
+    description = "/system/bin/init compatibility service for vendor daemons";
+    after = [ "local-fs.target" ];
+    before = [ "basic.target" "network.target" "bluetooth.service" ];
+    wantedBy = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStartPre = "${pkgs.coreutils}/bin/touch /dev/.coldboot_done";
+      ExecStart = "/usr/libexec/hal-droid/system/bin/init";
+    };
+  };
 }

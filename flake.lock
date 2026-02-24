@@ -1,5 +1,39 @@
 {
   "nodes": {
+    "asteroidos-asteroid-compass": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771665185,
+        "narHash": "sha256-XIHkdm3B+5V3ccEf6AYA2oUflTU5If6fJCi8JceeW7s=",
+        "ref": "master",
+        "rev": "b7d890885b3b3310741ab605b564f88fb076544b",
+        "revCount": 78,
+        "type": "git",
+        "url": "https://github.com/AsteroidOS/asteroid-compass.git"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://github.com/AsteroidOS/asteroid-compass.git"
+      }
+    },
+    "asteroidos-asteroid-hrm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771665187,
+        "narHash": "sha256-v4GYnB68P+y0Bcb5Y7griLInCArP5PEFY6Q3MjDwx7Y=",
+        "ref": "master",
+        "rev": "f825486c1c9a8038a97e7689ad4c34a7156c5cb9",
+        "revCount": 98,
+        "type": "git",
+        "url": "https://github.com/AsteroidOS/asteroid-hrm.git"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://github.com/AsteroidOS/asteroid-hrm.git"
+      }
+    },
     "asteroidos-asteroid-launcher": {
       "flake": false,
       "locked": {
@@ -29,6 +63,22 @@
       "original": {
         "owner": "AsteroidOS",
         "repo": "lipstick",
+        "type": "github"
+      }
+    },
+    "asteroidos-meta-asteroid": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771315056,
+        "narHash": "sha256-0baPfC7YjNsp3Y+C7yjO6H/WxoR4bDv4KyrmT2/ezsU=",
+        "owner": "AsteroidOS",
+        "repo": "meta-asteroid",
+        "rev": "71878ed09e43cef93a86512149199526ce5e4f3f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "meta-asteroid",
         "type": "github"
       }
     },
@@ -147,8 +197,11 @@
     },
     "root": {
       "inputs": {
+        "asteroidos-asteroid-compass": "asteroidos-asteroid-compass",
+        "asteroidos-asteroid-hrm": "asteroidos-asteroid-hrm",
         "asteroidos-asteroid-launcher": "asteroidos-asteroid-launcher",
         "asteroidos-lipstick": "asteroidos-lipstick",
+        "asteroidos-meta-asteroid": "asteroidos-meta-asteroid",
         "asteroidos-meta-smartwatch": "asteroidos-meta-smartwatch",
         "asteroidos-qml-asteroid": "asteroidos-qml-asteroid",
         "flake-compat": "flake-compat",
