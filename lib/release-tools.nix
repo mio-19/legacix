@@ -36,6 +36,14 @@ rec {
       asteroidosAsteroidLauncher = pkgs.asteroidosAsteroidLauncher;
       asteroidosAsteroidHrm = pkgs.asteroidosAsteroidHrm;
       asteroidosAsteroidCompass = pkgs.asteroidosAsteroidCompass;
+      asteroidosAsteroidCalculator = pkgs.asteroidosAsteroidCalculator;
+      asteroidosAsteroidCalendar = pkgs.asteroidosAsteroidCalendar;
+      asteroidosAsteroidDiamonds = pkgs.asteroidosAsteroidDiamonds;
+      asteroidosAsteroidFlashlight = pkgs.asteroidosAsteroidFlashlight;
+      asteroidosAsteroidMusic = pkgs.asteroidosAsteroidMusic;
+      asteroidosAsteroidStopwatch = pkgs.asteroidosAsteroidStopwatch;
+      asteroidosAsteroidTimer = pkgs.asteroidosAsteroidTimer;
+      asteroidosAsteroidWeather = pkgs.asteroidosAsteroidWeather;
       asteroidosQmlAsteroid = pkgs.asteroidosQmlAsteroid;
       asteroidosLipstick = pkgs.asteroidosLipstick;
       merHybrisBluebinder = pkgs.merHybrisBluebinder;

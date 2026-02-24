@@ -33,6 +33,46 @@
       flake = false;
     };
 
+    asteroidos-asteroid-calculator = {
+      url = "github:AsteroidOS/asteroid-calculator";
+      flake = false;
+    };
+
+    asteroidos-asteroid-calendar = {
+      url = "github:AsteroidOS/asteroid-calendar";
+      flake = false;
+    };
+
+    asteroidos-asteroid-diamonds = {
+      url = "github:AsteroidOS/asteroid-diamonds";
+      flake = false;
+    };
+
+    asteroidos-asteroid-flashlight = {
+      url = "github:AsteroidOS/asteroid-flashlight";
+      flake = false;
+    };
+
+    asteroidos-asteroid-music = {
+      url = "github:AsteroidOS/asteroid-music";
+      flake = false;
+    };
+
+    asteroidos-asteroid-stopwatch = {
+      url = "github:AsteroidOS/asteroid-stopwatch";
+      flake = false;
+    };
+
+    asteroidos-asteroid-timer = {
+      url = "github:AsteroidOS/asteroid-timer";
+      flake = false;
+    };
+
+    asteroidos-asteroid-weather = {
+      url = "github:AsteroidOS/asteroid-weather";
+      flake = false;
+    };
+
     asteroidos-qml-asteroid = {
       url = "github:AsteroidOS/qml-asteroid";
       flake = false;
@@ -77,6 +117,14 @@
     asteroidos-asteroid-launcher,
     asteroidos-asteroid-hrm,
     asteroidos-asteroid-compass,
+    asteroidos-asteroid-calculator,
+    asteroidos-asteroid-calendar,
+    asteroidos-asteroid-diamonds,
+    asteroidos-asteroid-flashlight,
+    asteroidos-asteroid-music,
+    asteroidos-asteroid-stopwatch,
+    asteroidos-asteroid-timer,
+    asteroidos-asteroid-weather,
     asteroidos-qml-asteroid,
     asteroidos-lipstick,
     mer-hybris-bluebinder,
@@ -113,6 +161,14 @@
           asteroidosAsteroidLauncher = asteroidos-asteroid-launcher;
           asteroidosAsteroidHrm = asteroidos-asteroid-hrm;
           asteroidosAsteroidCompass = asteroidos-asteroid-compass;
+          asteroidosAsteroidCalculator = asteroidos-asteroid-calculator;
+          asteroidosAsteroidCalendar = asteroidos-asteroid-calendar;
+          asteroidosAsteroidDiamonds = asteroidos-asteroid-diamonds;
+          asteroidosAsteroidFlashlight = asteroidos-asteroid-flashlight;
+          asteroidosAsteroidMusic = asteroidos-asteroid-music;
+          asteroidosAsteroidStopwatch = asteroidos-asteroid-stopwatch;
+          asteroidosAsteroidTimer = asteroidos-asteroid-timer;
+          asteroidosAsteroidWeather = asteroidos-asteroid-weather;
           asteroidosQmlAsteroid = asteroidos-qml-asteroid;
           asteroidosLipstick = asteroidos-lipstick;
           merHybrisBluebinder = mer-hybris-bluebinder;
@@ -134,6 +190,62 @@
             asteroid-compass = final.callPackage ./overlay/asteroidos/asteroid-compass {
               asteroidosAsteroidCompass = asteroidos-asteroid-compass;
               qmlAsteroid = qmlAsteroidPkg;
+            };
+            asteroid-calculator = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-calculator";
+              src = asteroidos-asteroid-calculator;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS calculator app";
+              homepage = "https://github.com/AsteroidOS/asteroid-calculator";
+            };
+            asteroid-calendar = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-calendar";
+              src = asteroidos-asteroid-calendar;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS calendar app";
+              homepage = "https://github.com/AsteroidOS/asteroid-calendar";
+            };
+            asteroid-diamonds = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-diamonds";
+              src = asteroidos-asteroid-diamonds;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS diamonds game";
+              homepage = "https://github.com/AsteroidOS/asteroid-diamonds";
+            };
+            asteroid-flashlight = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-flashlight";
+              src = asteroidos-asteroid-flashlight;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS flashlight app";
+              homepage = "https://github.com/AsteroidOS/asteroid-flashlight";
+            };
+            asteroid-music = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-music";
+              src = asteroidos-asteroid-music;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS music app";
+              homepage = "https://github.com/AsteroidOS/asteroid-music";
+            };
+            asteroid-stopwatch = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-stopwatch";
+              src = asteroidos-asteroid-stopwatch;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS stopwatch app";
+              homepage = "https://github.com/AsteroidOS/asteroid-stopwatch";
+            };
+            asteroid-timer = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-timer";
+              src = asteroidos-asteroid-timer;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS timer app";
+              homepage = "https://github.com/AsteroidOS/asteroid-timer";
+            };
+            asteroid-weather = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
+              pname = "asteroid-weather";
+              src = asteroidos-asteroid-weather;
+              qmlAsteroid = qmlAsteroidPkg;
+              description = "AsteroidOS weather app";
+              homepage = "https://github.com/AsteroidOS/asteroid-weather";
             };
             bluebinder = final.callPackage ./overlay/asteroidos/bluebinder {
               merHybrisBluebinder = mer-hybris-bluebinder;
@@ -172,6 +284,14 @@
           asteroidos-asteroid-launcher
           asteroidos-asteroid-hrm
           asteroidos-asteroid-compass
+          asteroidos-asteroid-calculator
+          asteroidos-asteroid-calendar
+          asteroidos-asteroid-diamonds
+          asteroidos-asteroid-flashlight
+          asteroidos-asteroid-music
+          asteroidos-asteroid-stopwatch
+          asteroidos-asteroid-timer
+          asteroidos-asteroid-weather
           asteroidos-qml-asteroid
           asteroidos-lipstick
           mer-hybris-bluebinder
@@ -205,6 +325,14 @@
           asteroidos-asteroid-launcher
           asteroidos-asteroid-hrm
           asteroidos-asteroid-compass
+          asteroidos-asteroid-calculator
+          asteroidos-asteroid-calendar
+          asteroidos-asteroid-diamonds
+          asteroidos-asteroid-flashlight
+          asteroidos-asteroid-music
+          asteroidos-asteroid-stopwatch
+          asteroidos-asteroid-timer
+          asteroidos-asteroid-weather
           asteroidos-qml-asteroid
           asteroidos-lipstick
           mer-hybris-bluebinder

@@ -1,5 +1,37 @@
 {
   "nodes": {
+    "asteroidos-asteroid-calculator": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664986,
+        "narHash": "sha256-ZxcQJF69T0RkB3USAKKmcY8dIHSdQlCVFy7YLIprI3Q=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-calculator",
+        "rev": "dd2b9b93afc153c617e81e6ad77caca9162392fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-calculator",
+        "type": "github"
+      }
+    },
+    "asteroidos-asteroid-calendar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664986,
+        "narHash": "sha256-+6ojLUhTnE3oZ7RSnPqjK7i4nCauLuzqAFunJZmZJI8=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-calendar",
+        "rev": "8255fbf79fffd9c7be57933b8e67fd76ede22d90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-calendar",
+        "type": "github"
+      }
+    },
     "asteroidos-asteroid-compass": {
       "flake": false,
       "locked": {
@@ -15,6 +47,38 @@
         "ref": "master",
         "type": "git",
         "url": "https://github.com/AsteroidOS/asteroid-compass.git"
+      }
+    },
+    "asteroidos-asteroid-diamonds": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664986,
+        "narHash": "sha256-urkJvFA/1UzYqJcdX7xGPUFQgvhyB8/AhEarDxjJg6E=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-diamonds",
+        "rev": "2c587a088992ab3f04b3c643219c1735b2d1bb98",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-diamonds",
+        "type": "github"
+      }
+    },
+    "asteroidos-asteroid-flashlight": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664986,
+        "narHash": "sha256-Fc5DrefBTQ03CCd3cUNvEjkyR7p5DVKq4upXdWxt66c=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-flashlight",
+        "rev": "cd106ae07b9afadca712ae34a3ba8edd1a8f5148",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-flashlight",
+        "type": "github"
       }
     },
     "asteroidos-asteroid-hrm": {
@@ -47,6 +111,70 @@
       "original": {
         "owner": "AsteroidOS",
         "repo": "asteroid-launcher",
+        "type": "github"
+      }
+    },
+    "asteroidos-asteroid-music": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664986,
+        "narHash": "sha256-dzmBlj1hrp6wFFZPsG+j6P/GxBqlq2Dh3/h84tv57LE=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-music",
+        "rev": "b86aa04d8db45852aa1804306f3123baf0bfd441",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-music",
+        "type": "github"
+      }
+    },
+    "asteroidos-asteroid-stopwatch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664987,
+        "narHash": "sha256-1Tx18wWwLji8jP8e7JqWsX1RwcsfhkzVCG/MEtSKOX0=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-stopwatch",
+        "rev": "9c63021c9ebd5887a880954014a6d31545dceaaf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-stopwatch",
+        "type": "github"
+      }
+    },
+    "asteroidos-asteroid-timer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664986,
+        "narHash": "sha256-sgOXFXPxapUUHxiiUildZGkA28Co/zZRPZJy+qb+9Jw=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-timer",
+        "rev": "f04baa1e99fd867fab9c83b84412def455a1266f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-timer",
+        "type": "github"
+      }
+    },
+    "asteroidos-asteroid-weather": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771664986,
+        "narHash": "sha256-dFYtcUv/6dmq7Bg0e+6CGH/5a/Ct93/271kFN5zZFTs=",
+        "owner": "AsteroidOS",
+        "repo": "asteroid-weather",
+        "rev": "827d1c4b5d662977d311168853f2b02e946f9841",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsteroidOS",
+        "repo": "asteroid-weather",
         "type": "github"
       }
     },
@@ -229,9 +357,17 @@
     },
     "root": {
       "inputs": {
+        "asteroidos-asteroid-calculator": "asteroidos-asteroid-calculator",
+        "asteroidos-asteroid-calendar": "asteroidos-asteroid-calendar",
         "asteroidos-asteroid-compass": "asteroidos-asteroid-compass",
+        "asteroidos-asteroid-diamonds": "asteroidos-asteroid-diamonds",
+        "asteroidos-asteroid-flashlight": "asteroidos-asteroid-flashlight",
         "asteroidos-asteroid-hrm": "asteroidos-asteroid-hrm",
         "asteroidos-asteroid-launcher": "asteroidos-asteroid-launcher",
+        "asteroidos-asteroid-music": "asteroidos-asteroid-music",
+        "asteroidos-asteroid-stopwatch": "asteroidos-asteroid-stopwatch",
+        "asteroidos-asteroid-timer": "asteroidos-asteroid-timer",
+        "asteroidos-asteroid-weather": "asteroidos-asteroid-weather",
         "asteroidos-lipstick": "asteroidos-lipstick",
         "asteroidos-meta-asteroid": "asteroidos-meta-asteroid",
         "asteroidos-meta-smartwatch": "asteroidos-meta-smartwatch",
