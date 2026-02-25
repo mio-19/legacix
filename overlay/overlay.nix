@@ -96,6 +96,8 @@ in
       postPatch = ''
         substituteInPlace Makefile \
           --replace "ar qc" '${self.stdenv.cc.bintools.targetPrefix}ar qc'
+        substituteInPlace scripts/getversion.sh \
+          --replace-fail "/usr/bin/env bash" "${self.bash}/bin/bash"
       '';
     });
 

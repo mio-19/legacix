@@ -51,6 +51,7 @@ rec {
       fossilKernelMsmFossilCw = pkgs.fossilKernelMsmFossilCw;
       droidianKernelLenovoBronco = pkgs.droidianKernelLenovoBronco;
       droidianAdaptationLenovoBronco = pkgs.droidianAdaptationLenovoBronco;
+      postmarketosPmaports = pkgs.postmarketosPmaports;
     };
     modules =
       (if device ? special

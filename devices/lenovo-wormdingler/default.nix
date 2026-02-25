@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, postmarketosPmaports, ... }:
 
 {
   imports = [
@@ -22,7 +22,9 @@
   };
 
   mobile.boot.stage-1 = {
-    kernel.package = pkgs.callPackage ./kernel {};
+    kernel.package = pkgs.callPackage ./kernel {
+      inherit postmarketosPmaports;
+    };
     kernel.modular = true;
     kernel.additionalModules = [
       # Breaks udev if builtin or loaded before udev runs.
