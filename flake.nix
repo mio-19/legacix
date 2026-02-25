@@ -107,6 +107,11 @@
       url = "github:droidian-devices/adaptation-droidian-bronco";
       flake = false;
     };
+
+    postmarketos-pmaports = {
+      url = "git+https://gitlab.postmarketos.org/postmarketOS/pmaports.git";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -132,6 +137,7 @@
     fossil-kernel-msm-fossil-cw,
     droidian-kernel-lenovo-bronco,
     droidian-adaptation-lenovo-bronco,
+    postmarketos-pmaports,
     ...
   }:
     let
@@ -176,6 +182,7 @@
           fossilKernelMsmFossilCw = fossil-kernel-msm-fossil-cw;
           droidianKernelLenovoBronco = droidian-kernel-lenovo-bronco;
           droidianAdaptationLenovoBronco = droidian-adaptation-lenovo-bronco;
+          postmarketosPmaports = postmarketos-pmaports;
           asteroidos =
             let
               qmlAsteroidPkg = final.callPackage ./overlay/asteroidos/qml-asteroid {
@@ -299,6 +306,7 @@
           fossil-kernel-msm-fossil-cw
           droidian-kernel-lenovo-bronco
           droidian-adaptation-lenovo-bronco
+          postmarketos-pmaports
         ;
       };
 
@@ -340,6 +348,7 @@
           fossil-kernel-msm-fossil-cw
           droidian-kernel-lenovo-bronco
           droidian-adaptation-lenovo-bronco
+          postmarketos-pmaports
         ;
       });
 

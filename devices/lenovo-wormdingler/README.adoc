@@ -3,6 +3,10 @@ include::_support/common.inc[]
 
 == Device-specific notes
 
+This device support reuses parts of postmarketOS work for `google-trogdor` /
+`google-wormdingler`, notably the SC7180 kernel baseline/config choices and
+accelerometer behavior quirks.
+
 === Developer mode
 
 For more details the link:https://chromium.googlesource.com/chromiumos/docs/+/HEAD/debug_buttons.md#Firmware-Menu-Interface[

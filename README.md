@@ -20,6 +20,9 @@ This fork intentionally keeps support for downstream vendor kernels, `libhybris`
 - [Droidian](https://droidian.org/)
 - [AsteroidOS](https://asteroidos.org/)
 - [AsteroidOS FAQ (`libhybris` context)](https://wiki.asteroidos.org/index.php/Frequently_Asked_Questions_(FAQ))
+- [postmarketOS](https://postmarketos.org/)
+- [postmarketOS `google-wormdingler` / `google-trogdor` support](https://wiki.postmarketos.org/wiki/Lenovo_IdeaPad_Duet_3_(google-wormdingler))
+- [postmarketOS `linux-postmarketos-qcom-sc7180` package](https://gitlab.postmarketos.org/postmarketOS/pmaports/-/tree/master/device/community/linux-postmarketos-qcom-sc7180)
 
 ## Nix Support Policy
 

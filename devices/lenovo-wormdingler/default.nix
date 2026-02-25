@@ -50,6 +50,10 @@
     sensor:accel-display:modalias:platform:cros-ec-accel:*
       ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, -1
   '';
+  # Reuse postmarketOS quirk: iio-sensor-proxy polling fallback for cros-ec accel.
+  services.udev.extraRules = lib.mkBefore ''
+    SUBSYSTEM=="iio", TEST=="in_accel_x_raw", TEST=="in_accel_y_raw", TEST=="in_accel_z_raw", ENV{IIO_SENSOR_PROXY_TYPE}="iio-poll-accel"
+  '';
 
   mobile.system.type = "depthcharge";
 

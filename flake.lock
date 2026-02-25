@@ -355,6 +355,22 @@
         "type": "github"
       }
     },
+    "postmarketos-pmaports": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771997921,
+        "narHash": "sha256-21l//3JMbIEbOYOgBsW0bbh7UCa8Jw5c/Tl/JccNMDg=",
+        "ref": "refs/heads/master",
+        "rev": "4bb3ce27d699198980f13500985e757fab1e32ef",
+        "revCount": 13099,
+        "type": "git",
+        "url": "https://gitlab.postmarketos.org/postmarketOS/pmaports.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.postmarketos.org/postmarketOS/pmaports.git"
+      }
+    },
     "root": {
       "inputs": {
         "asteroidos-asteroid-calculator": "asteroidos-asteroid-calculator",
@@ -378,7 +394,8 @@
         "fossil-kernel-msm-fossil-cw": "fossil-kernel-msm-fossil-cw",
         "mer-hybris-bluebinder": "mer-hybris-bluebinder",
         "mer-hybris-qt5-qpa-hwcomposer-plugin": "mer-hybris-qt5-qpa-hwcomposer-plugin",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "postmarketos-pmaports": "postmarketos-pmaports"
       }
     }
   },

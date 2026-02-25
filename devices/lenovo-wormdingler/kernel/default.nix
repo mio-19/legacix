@@ -1,17 +1,17 @@
 { mobile-nixos
-, fetchFromGitHub
+, postmarketosPmaports
+, fetchurl
 , ...
 }:
 
 mobile-nixos.kernel-builder {
-  version = "6.1.0";
-  configfile = ./config.aarch64;
+  # Matches postmarketOS linux-postmarketos-qcom-sc7180 package baseline.
+  version = "6.18.9";
+  configfile = "${postmarketosPmaports}/device/community/linux-postmarketos-qcom-sc7180/config-postmarketos-qcom-sc7180.aarch64";
 
-  src = fetchFromGitHub {
-    owner = "torvalds";
-    repo = "linux";
-    rev = "v6.1";
-    sha256 = "sha256-7HBzP6P/7KLCfKas4TRFfCutG0azFzV+IpQABtDMHnk=";
+  src = fetchurl {
+    url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.9.tar.xz";
+    sha256 = "sha256-AwEV/4+0y1NthEncQOvD4xToa6GzFqauIQkaEcyTBXg=";
   };
 
   isModular = true;
