@@ -40,7 +40,6 @@ let
   inherit (pkgs') lib releaseTools;
   inherit (mobileReleaseTools.withPkgs pkgs')
     evalFor
-    evalWithConfiguration
     knownSystems
     specialConfig
   ;
