@@ -14,7 +14,7 @@
 
 , dtc
 , ubootTools
-, vboot_reference
+, vboot-utils
 , xz
 , writeTextFile
 }:
@@ -60,7 +60,7 @@ let
     nativeBuildInputs = [
       dtc
       ubootTools
-      vboot_reference
+      vboot-utils
       xz
     ];
   } ''
@@ -87,8 +87,8 @@ let
       --bootloader bootloader.bin \
       --vmlinuz vmlinux.uimg \
       --arch ${arch} \
-      --keyblock ${buildPackages.vboot_reference}/share/vboot/devkeys/kernel.keyblock \
-      --signprivate ${buildPackages.vboot_reference}/share/vboot/devkeys/kernel_data_key.vbprivk \
+      --keyblock ${buildPackages.vboot-utils}/share/vboot/devkeys/kernel.keyblock \
+      --signprivate ${buildPackages.vboot-utils}/share/vboot/devkeys/kernel_data_key.vbprivk \
       --config ${kpart_config} \
       --pack $out/kpart
   '';
@@ -115,7 +115,7 @@ in
   # Takes the built image, and do some light editing using `cgpt`.
   # This uses some depthcharge-specific fields to make the image bootable.
   # FIXME : integrate into the makeGPT call with postBuild or something
-  disk-image = runCommand "depthcharge-${device_name}" { nativeBuildInputs = [ vboot_reference ]; } ''
+  disk-image = runCommand "depthcharge-${device_name}" { nativeBuildInputs = [ vboot-utils ]; } ''
     # Copy the generated image...
     # Note that while it's GPT, it's lacking some depthcharge magic attributes
     cp ${image}/${name}.img ./

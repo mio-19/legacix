@@ -91,7 +91,7 @@ in
     # All that follows will have to be cleaned and then upstreamed.
     #
 
-    vboot_reference = super.vboot_reference.overrideAttrs(attrs: {
+    vboot-utils = super.vboot-utils.overrideAttrs(attrs: {
       # https://github.com/NixOS/nixpkgs/pull/69039
       postPatch = ''
         substituteInPlace Makefile \
