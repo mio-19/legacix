@@ -22,6 +22,17 @@ mobile-nixos.kernel-builder-gcc8 {
     "${asteroidosHokiKernel}/files/0006-ARM-8933-1-replace-Sun-Solaris-style-flag-on-section.patch"
   ];
 
+  postPatch = ''
+    # Older/vendor trees may not provide dtbs_install; mobile-nixos builder calls it.
+    # Add a compatibility no-op target so install phase can continue.
+    if ! grep -q '^dtbs_install:' Makefile; then
+      cat >> Makefile <<'EOF'
+dtbs_install:
+	@true
+EOF
+    fi
+  '';
+
   # AsteroidOS currently uses gcc8; use existing builder variant for now.
   enableConfigValidation = false;
   enableRemovingWerror = true;
