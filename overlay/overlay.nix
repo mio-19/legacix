@@ -106,6 +106,21 @@ in
       ];
     });
 
+    qt5 = super.qt5.overrideScope (_: qtSuper: {
+      qtbase = qtSuper.qtbase.overrideAttrs (old: {
+        setupHook = self.writeText "qtbase-setup-hook.sh" (
+          builtins.replaceStrings
+            [
+              "        echo >&2 \"Error: detected mismatched Qt dependencies:\"\n        echo >&2 \"    @dev@\"\n        echo >&2 \"    $__nix_qtbase\"\n        exit 1\n"
+            ]
+            [
+              "        echo >&2 \"Warning: mismatched Qt dependencies in cross build, continuing:\"\n        echo >&2 \"    @dev@\"\n        echo >&2 \"    $__nix_qtbase\"\n"
+            ]
+            (builtins.readFile old.setupHook)
+        );
+      });
+    });
+
     sbc = super.sbc.overrideAttrs (old: {
       postPatch = (old.postPatch or "") + ''
         # GCC/C23 treats empty parameter lists as no-argument functions.
