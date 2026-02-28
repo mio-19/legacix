@@ -1,8 +1,8 @@
-{ config, lib, pkgs, postmarketosPmaports, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
-    ./sound.nix
+    ../families/mainline-chromeos-sc7180
   ];
 
   mobile.device.name = "lenovo-wormdingler";
@@ -13,6 +13,7 @@
   mobile.device.supportLevel = "supported";
 
   mobile.hardware = {
+    # Keep postmarketOS-based kernel/userspace assumptions explicit.
     soc = "qualcomm-sc7180";
     ram = 1024 * 4; # Up to 8GiB
     screen = {
@@ -21,10 +22,8 @@
     };
   };
 
+  # Battery modules required on this hardware.
   mobile.boot.stage-1 = {
-    kernel.package = pkgs.callPackage ./kernel {
-      inherit postmarketosPmaports;
-    };
     kernel.modular = true;
     kernel.additionalModules = [
       # Breaks udev if builtin or loaded before udev runs.
@@ -36,15 +35,7 @@
   };
 
   mobile.system.depthcharge.kpart = {
-    dtbs = "${config.mobile.boot.stage-1.kernel.package}/dtbs/qcom";
-  };
-
-  # Serial console on ttyMSM0, using a suzyqable or equivalent.
-  mobile.boot.serialConsole = "ttyMSM0,115200n8";
-
-  systemd.services."serial-getty@ttyMSM0" = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
+    dtbs = lib.mkForce "${config.mobile.boot.stage-1.kernel.package}/dtbs/qcom";
   };
 
   # Ensure orientation match with keyboard.
@@ -57,18 +48,14 @@
     SUBSYSTEM=="iio", TEST=="in_accel_x_raw", TEST=="in_accel_y_raw", TEST=="in_accel_z_raw", ENV{IIO_SENSOR_PROXY_TYPE}="iio-poll-accel"
   '';
 
-  mobile.system.type = "depthcharge";
+  # Keep this device-local firmware package naming for current docs/config users.
+  mobile.device.firmware = lib.mkForce (pkgs.callPackage ./firmware {});
+  mobile.boot.stage-1.firmware = lib.mkForce [ config.mobile.device.firmware ];
+  hardware.firmware = lib.mkForce [ config.mobile.device.firmware ];
 
-  mobile.device.firmware = pkgs.callPackage ./firmware {};
-  mobile.boot.stage-1.firmware = [
-    config.mobile.device.firmware
+  nixpkgs.overlays = [
+    (final: _: {
+      lenovo-wormdingler-unredistributable-firmware = final.callPackage ./firmware/non-redistributable.nix {};
+    })
   ];
-
-  hardware.firmware = lib.mkBefore [ config.mobile.device.firmware ];
-
-  mobile.quirks.qualcomm.sc7180-modem.enable = true;
-
-  nixpkgs.overlays = [(final: super: {
-    lenovo-wormdingler-unredistributable-firmware = final.callPackage ./firmware/non-redistributable.nix {};
-  })];
 }
