@@ -1,0 +1,86 @@
+# Generated-source definitions for legacix.
+# Run: nix run .#update-sources
+
+[asteroidos-meta-smartwatch]
+src.git = "https://github.com/AsteroidOS/meta-smartwatch.git"
+fetch.git = "https://github.com/AsteroidOS/meta-smartwatch.git"
+
+[asteroidos-meta-asteroid]
+src.git = "https://github.com/AsteroidOS/meta-asteroid.git"
+fetch.git = "https://github.com/AsteroidOS/meta-asteroid.git"
+
+[asteroidos-asteroid-launcher]
+src.git = "https://github.com/AsteroidOS/asteroid-launcher.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-launcher.git"
+
+[asteroidos-asteroid-hrm]
+src.git = "https://github.com/AsteroidOS/asteroid-hrm.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-hrm.git"
+
+[asteroidos-asteroid-compass]
+src.git = "https://github.com/AsteroidOS/asteroid-compass.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-compass.git"
+
+[asteroidos-asteroid-calculator]
+src.git = "https://github.com/AsteroidOS/asteroid-calculator.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-calculator.git"
+
+[asteroidos-asteroid-calendar]
+src.git = "https://github.com/AsteroidOS/asteroid-calendar.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-calendar.git"
+
+[asteroidos-asteroid-diamonds]
+src.git = "https://github.com/AsteroidOS/asteroid-diamonds.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-diamonds.git"
+
+[asteroidos-asteroid-flashlight]
+src.git = "https://github.com/AsteroidOS/asteroid-flashlight.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-flashlight.git"
+
+[asteroidos-asteroid-music]
+src.git = "https://github.com/AsteroidOS/asteroid-music.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-music.git"
+
+[asteroidos-asteroid-stopwatch]
+src.git = "https://github.com/AsteroidOS/asteroid-stopwatch.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-stopwatch.git"
+
+[asteroidos-asteroid-timer]
+src.git = "https://github.com/AsteroidOS/asteroid-timer.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-timer.git"
+
+[asteroidos-asteroid-weather]
+src.git = "https://github.com/AsteroidOS/asteroid-weather.git"
+fetch.git = "https://github.com/AsteroidOS/asteroid-weather.git"
+
+[asteroidos-qml-asteroid]
+src.git = "https://github.com/AsteroidOS/qml-asteroid.git"
+fetch.git = "https://github.com/AsteroidOS/qml-asteroid.git"
+
+[asteroidos-lipstick]
+src.git = "https://github.com/AsteroidOS/lipstick.git"
+fetch.git = "https://github.com/AsteroidOS/lipstick.git"
+
+[mer-hybris-bluebinder]
+src.git = "https://github.com/mer-hybris/bluebinder.git"
+fetch.git = "https://github.com/mer-hybris/bluebinder.git"
+
+[mer-hybris-qt5-qpa-hwcomposer-plugin]
+src.git = "https://github.com/mer-hybris/qt5-qpa-hwcomposer-plugin.git"
+fetch.git = "https://github.com/mer-hybris/qt5-qpa-hwcomposer-plugin.git"
+
+[fossil-kernel-msm-fossil-cw]
+src.git = "https://github.com/fossil-engineering/kernel-msm-fossil-cw.git"
+fetch.git = "https://github.com/fossil-engineering/kernel-msm-fossil-cw.git"
+
+[droidian-kernel-lenovo-bronco]
+src.git = "https://github.com/droidian-devices/linux-android-lenovo-bronco.git"
+fetch.git = "https://github.com/droidian-devices/linux-android-lenovo-bronco.git"
+
+[droidian-adaptation-lenovo-bronco]
+src.git = "https://github.com/droidian-devices/adaptation-droidian-bronco.git"
+fetch.git = "https://github.com/droidian-devices/adaptation-droidian-bronco.git"
+
+[postmarketos-pmaports]
+src.git = "https://gitlab.postmarketos.org/postmarketOS/pmaports.git"
+fetch.git = "https://gitlab.postmarketos.org/postmarketOS/pmaports.git"

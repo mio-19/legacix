@@ -39,151 +39,112 @@
       overlays.default = final: prev:
         let
           base = import ./overlay/overlay.nix final prev;
+          sources = sourceInputs;
         in
-        base // {
-          asteroidosMetaSmartwatch = sourceInputs.asteroidosMetaSmartwatch;
-          asteroidosMetaAsteroid = sourceInputs.asteroidosMetaAsteroid;
-          asteroidosAsteroidLauncher = sourceInputs.asteroidosAsteroidLauncher;
-          asteroidosAsteroidHrm = sourceInputs.asteroidosAsteroidHrm;
-          asteroidosAsteroidCompass = sourceInputs.asteroidosAsteroidCompass;
-          asteroidosAsteroidCalculator = sourceInputs.asteroidosAsteroidCalculator;
-          asteroidosAsteroidCalendar = sourceInputs.asteroidosAsteroidCalendar;
-          asteroidosAsteroidDiamonds = sourceInputs.asteroidosAsteroidDiamonds;
-          asteroidosAsteroidFlashlight = sourceInputs.asteroidosAsteroidFlashlight;
-          asteroidosAsteroidMusic = sourceInputs.asteroidosAsteroidMusic;
-          asteroidosAsteroidStopwatch = sourceInputs.asteroidosAsteroidStopwatch;
-          asteroidosAsteroidTimer = sourceInputs.asteroidosAsteroidTimer;
-          asteroidosAsteroidWeather = sourceInputs.asteroidosAsteroidWeather;
-          asteroidosQmlAsteroid = sourceInputs.asteroidosQmlAsteroid;
-          asteroidosLipstick = sourceInputs.asteroidosLipstick;
-          merHybrisBluebinder = sourceInputs.merHybrisBluebinder;
-          merHybrisQt5QpaHwcomposerPlugin = sourceInputs.merHybrisQt5QpaHwcomposerPlugin;
-          fossilKernelMsmFossilCw = sourceInputs.fossilKernelMsmFossilCw;
-          droidianKernelLenovoBronco = sourceInputs.droidianKernelLenovoBronco;
-          droidianAdaptationLenovoBronco = sourceInputs.droidianAdaptationLenovoBronco;
-          postmarketosPmaports = sourceInputs.postmarketosPmaports;
+        base // sources // {
+          inherit sources;
           asteroidos =
             let
               qmlAsteroidPkg = final.callPackage ./overlay/asteroidos/qml-asteroid {
-                asteroidosQmlAsteroid = sourceInputs.asteroidosQmlAsteroid;
+                asteroidosQmlAsteroid = sources.asteroidosQmlAsteroid;
               };
             in {
               qml-asteroid = qmlAsteroidPkg;
               asteroid-hrm = final.callPackage ./overlay/asteroidos/asteroid-hrm {
-                asteroidosAsteroidHrm = sourceInputs.asteroidosAsteroidHrm;
+                asteroidosAsteroidHrm = sources.asteroidosAsteroidHrm;
                 qmlAsteroid = qmlAsteroidPkg;
               };
               asteroid-compass = final.callPackage ./overlay/asteroidos/asteroid-compass {
-                asteroidosAsteroidCompass = sourceInputs.asteroidosAsteroidCompass;
+                asteroidosAsteroidCompass = sources.asteroidosAsteroidCompass;
                 qmlAsteroid = qmlAsteroidPkg;
               };
               asteroid-calculator = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-calculator";
-                src = sourceInputs.asteroidosAsteroidCalculator;
+                src = sources.asteroidosAsteroidCalculator;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS calculator app";
                 homepage = "https://github.com/AsteroidOS/asteroid-calculator";
               };
               asteroid-calendar = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-calendar";
-                src = sourceInputs.asteroidosAsteroidCalendar;
+                src = sources.asteroidosAsteroidCalendar;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS calendar app";
                 homepage = "https://github.com/AsteroidOS/asteroid-calendar";
               };
               asteroid-diamonds = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-diamonds";
-                src = sourceInputs.asteroidosAsteroidDiamonds;
+                src = sources.asteroidosAsteroidDiamonds;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS diamonds game";
                 homepage = "https://github.com/AsteroidOS/asteroid-diamonds";
               };
               asteroid-flashlight = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-flashlight";
-                src = sourceInputs.asteroidosAsteroidFlashlight;
+                src = sources.asteroidosAsteroidFlashlight;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS flashlight app";
                 homepage = "https://github.com/AsteroidOS/asteroid-flashlight";
               };
               asteroid-music = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-music";
-                src = sourceInputs.asteroidosAsteroidMusic;
+                src = sources.asteroidosAsteroidMusic;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS music app";
                 homepage = "https://github.com/AsteroidOS/asteroid-music";
               };
               asteroid-stopwatch = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-stopwatch";
-                src = sourceInputs.asteroidosAsteroidStopwatch;
+                src = sources.asteroidosAsteroidStopwatch;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS stopwatch app";
                 homepage = "https://github.com/AsteroidOS/asteroid-stopwatch";
               };
               asteroid-timer = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-timer";
-                src = sourceInputs.asteroidosAsteroidTimer;
+                src = sources.asteroidosAsteroidTimer;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS timer app";
                 homepage = "https://github.com/AsteroidOS/asteroid-timer";
               };
               asteroid-weather = final.callPackage ./overlay/asteroidos/asteroid-qml-app {
                 pname = "asteroid-weather";
-                src = sourceInputs.asteroidosAsteroidWeather;
+                src = sources.asteroidosAsteroidWeather;
                 qmlAsteroid = qmlAsteroidPkg;
                 description = "AsteroidOS weather app";
                 homepage = "https://github.com/AsteroidOS/asteroid-weather";
               };
               bluebinder = final.callPackage ./overlay/asteroidos/bluebinder {
-                merHybrisBluebinder = sourceInputs.merHybrisBluebinder;
+                merHybrisBluebinder = sources.merHybrisBluebinder;
               };
               "qt5-qpa-hwcomposer-plugin" = final.callPackage ./overlay/asteroidos/qt5-qpa-hwcomposer-plugin {
-                merHybrisQt5QpaHwcomposerPlugin = sourceInputs.merHybrisQt5QpaHwcomposerPlugin;
+                merHybrisQt5QpaHwcomposerPlugin = sources.merHybrisQt5QpaHwcomposerPlugin;
               };
               hoki-launcher-config = final.callPackage ./overlay/asteroidos/hoki-launcher-config {
-                asteroidosMetaSmartwatch = sourceInputs.asteroidosMetaSmartwatch;
+                asteroidosMetaSmartwatch = sources.asteroidosMetaSmartwatch;
               };
               hoki-underclock = final.callPackage ./overlay/asteroidos/hoki-underclock {
-                asteroidosMetaSmartwatch = sourceInputs.asteroidosMetaSmartwatch;
+                asteroidosMetaSmartwatch = sources.asteroidosMetaSmartwatch;
               };
               "android-init-hoki" = final.callPackage ./overlay/asteroidos/android-init-hoki {
-                asteroidosMetaSmartwatch = sourceInputs.asteroidosMetaSmartwatch;
-                asteroidosMetaAsteroid = sourceInputs.asteroidosMetaAsteroid;
+                asteroidosMetaSmartwatch = sources.asteroidosMetaSmartwatch;
+                asteroidosMetaAsteroid = sources.asteroidosMetaAsteroid;
               };
               "udev-droid-system" = final.callPackage ./overlay/asteroidos/udev-droid-system {
-                asteroidosMetaAsteroid = sourceInputs.asteroidosMetaAsteroid;
+                asteroidosMetaAsteroid = sources.asteroidosMetaAsteroid;
               };
               "swclock-offset" = final.callPackage ./overlay/asteroidos/swclock-offset { };
               "hoki-ngfd-config" = final.callPackage ./overlay/asteroidos/hoki-ngfd-config {
-                asteroidosMetaSmartwatch = sourceInputs.asteroidosMetaSmartwatch;
+                asteroidosMetaSmartwatch = sources.asteroidosMetaSmartwatch;
               };
               "hoki-libncicore-config" = final.callPackage ./overlay/asteroidos/hoki-libncicore-config {
-                asteroidosMetaSmartwatch = sourceInputs.asteroidosMetaSmartwatch;
+                asteroidosMetaSmartwatch = sources.asteroidosMetaSmartwatch;
               };
             };
         };
 
-      sources = {
-        asteroidos-meta-smartwatch = sourceInputs.asteroidosMetaSmartwatch;
-        asteroidos-meta-asteroid = sourceInputs.asteroidosMetaAsteroid;
-        asteroidos-asteroid-launcher = sourceInputs.asteroidosAsteroidLauncher;
-        asteroidos-asteroid-hrm = sourceInputs.asteroidosAsteroidHrm;
-        asteroidos-asteroid-compass = sourceInputs.asteroidosAsteroidCompass;
-        asteroidos-asteroid-calculator = sourceInputs.asteroidosAsteroidCalculator;
-        asteroidos-asteroid-calendar = sourceInputs.asteroidosAsteroidCalendar;
-        asteroidos-asteroid-diamonds = sourceInputs.asteroidosAsteroidDiamonds;
-        asteroidos-asteroid-flashlight = sourceInputs.asteroidosAsteroidFlashlight;
-        asteroidos-asteroid-music = sourceInputs.asteroidosAsteroidMusic;
-        asteroidos-asteroid-stopwatch = sourceInputs.asteroidosAsteroidStopwatch;
-        asteroidos-asteroid-timer = sourceInputs.asteroidosAsteroidTimer;
-        asteroidos-asteroid-weather = sourceInputs.asteroidosAsteroidWeather;
-        asteroidos-qml-asteroid = sourceInputs.asteroidosQmlAsteroid;
-        asteroidos-lipstick = sourceInputs.asteroidosLipstick;
-        mer-hybris-bluebinder = sourceInputs.merHybrisBluebinder;
-        mer-hybris-qt5-qpa-hwcomposer-plugin = sourceInputs.merHybrisQt5QpaHwcomposerPlugin;
-        fossil-kernel-msm-fossil-cw = sourceInputs.fossilKernelMsmFossilCw;
-        droidian-kernel-lenovo-bronco = sourceInputs.droidianKernelLenovoBronco;
-        droidian-adaptation-lenovo-bronco = sourceInputs.droidianAdaptationLenovoBronco;
-        postmarketos-pmaports = sourceInputs.postmarketosPmaports;
+      sources = import ./sources/generated.nix {
+        inherit (pkgsForFetch) fetchgit fetchurl fetchFromGitHub dockerTools;
       };
 
       legacyPackages = forAllSystems ({ pkgs, ... }: {
@@ -200,34 +161,22 @@
           hoki-asteroidos = import ./examples/hoki-asteroidos { inherit pkgs; };
           lenovo-bronco = import ./examples/lenovo-bronco { inherit pkgs; };
         };
+      } // sourceInputs);
 
-        inherit (sourceInputs)
-          asteroidosMetaSmartwatch
-          asteroidosMetaAsteroid
-          asteroidosAsteroidLauncher
-          asteroidosAsteroidHrm
-          asteroidosAsteroidCompass
-          asteroidosAsteroidCalculator
-          asteroidosAsteroidCalendar
-          asteroidosAsteroidDiamonds
-          asteroidosAsteroidFlashlight
-          asteroidosAsteroidMusic
-          asteroidosAsteroidStopwatch
-          asteroidosAsteroidTimer
-          asteroidosAsteroidWeather
-          asteroidosQmlAsteroid
-          asteroidosLipstick
-          merHybrisBluebinder
-          merHybrisQt5QpaHwcomposerPlugin
-          fossilKernelMsmFossilCw
-          droidianKernelLenovoBronco
-          droidianAdaptationLenovoBronco
-          postmarketosPmaports
-        ;
+      apps = forAllSystems ({ pkgs, ... }: {
+        update-sources = {
+          type = "app";
+          program = toString (pkgs.writeShellScript "update-sources" ''
+            set -euo pipefail
+            exec ${pkgs.nvfetcher}/bin/nvfetcher -c ./nvfetcher.toml -o ./sources "$@"
+          '');
+        };
       });
 
       devShells = forAllSystems ({ pkgs, ... }: {
-        default = import ./legacy/shell.nix { inherit pkgs; };
+        default = (import ./legacy/shell.nix { inherit pkgs; }).overrideAttrs (old: {
+          buildInputs = old.buildInputs ++ [ pkgs.nvfetcher ];
+        });
       });
     };
 }

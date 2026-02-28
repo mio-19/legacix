@@ -29,8 +29,14 @@ This fork intentionally keeps support for downstream vendor kernels, `libhybris`
 Only Nix Flakes are supported in this repository.
 Legacy non-flake workflows are not supported.
 
-This flake includes AsteroidOS `meta-smartwatch` as a non-flake input for
-kernel patch reuse and related integration work:
+AsteroidOS and related source pins are managed with `nvfetcher` and generated
+into `sources/generated.nix` (consumed through `sources/default.nix`).
+
+Update source pins with:
+
+- `nix run .#update-sources`
+
+Current tracked upstream sources include:
 
 - https://github.com/AsteroidOS/meta-smartwatch
 - https://github.com/AsteroidOS/asteroid-launcher
