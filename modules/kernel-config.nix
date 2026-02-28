@@ -163,8 +163,9 @@ in
         IP_NF_IPTABLES              = module;
         IP6_NF_IPTABLES             = module;
         NETFILTER_XTABLES           = module;
-        IP_NF_RAW                   = module;
-        IP6_NF_RAW                  = module;
+        # RAW table symbols are not available on newer kernels.
+        IP_NF_RAW                   = whenOlder "6.18" module;
+        IP6_NF_RAW                  = whenOlder "6.18" module;
         NETFILTER_XT_TARGET_CT      = module; # required for NF_CONNTRACK_ZONES
 
         BRIDGE                      = module; # required for BRIDGE_NETFILTER
