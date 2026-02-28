@@ -135,6 +135,16 @@ in
       '';
     });
 
+    gnutls = super.gnutls.overrideAttrs (old: {
+      # Cross builds may try to run target doc helpers (errcodes/printlist),
+      # which fails with "Exec format error". Disable docs when cross-compiling.
+      configureFlags =
+        (old.configureFlags or [])
+        ++ self.lib.optionals (self.stdenv.buildPlatform != self.stdenv.hostPlatform) [
+          "--disable-doc"
+        ];
+    });
+
 
     # Things specific to mobile-nixos.
     # Not necessarily internals, but they probably won't go into <nixpkgs>.
