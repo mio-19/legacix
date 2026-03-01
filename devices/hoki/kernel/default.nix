@@ -36,6 +36,7 @@ EOF
   # AsteroidOS currently uses gcc8; use existing builder variant for now.
   enableConfigValidation = false;
   enableRemovingWerror = true;
+  enableParallelBuilding = false;
   isModular = false;
   isImageGzDtb = true;
   nativeBuildInputs = [ cpio ];
