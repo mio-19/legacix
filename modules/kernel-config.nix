@@ -142,7 +142,8 @@ in
         NFT_NUMGEN                  = whenAtLeast "4.9" yes;
         NFT_META                    = whenBetween "3.13" "4.17" yes;
         # https://github.com/torvalds/linux/commit/d037abc2414b4539401e0e6aa278bedc4628ad69
-        NFT_OBJREF                  = whenBetween "4.10" "6.2" yes;
+        # Some downstream 6.1 trees omit this symbol.
+        NFT_OBJREF                  = whenBetween "4.10" "6.2" (option yes);
         NFT_OSF                     = whenAtLeast "4.19" yes;
         NFT_QUOTA                   = whenAtLeast "4.9" yes;
         NFT_REDIR                   = whenAtLeast "3.19" yes;
