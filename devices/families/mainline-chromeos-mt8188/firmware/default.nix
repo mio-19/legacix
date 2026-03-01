@@ -18,6 +18,7 @@ runCommand "mt8188-chromeos-firmware" {
   }
 
   for firmware in \
+    mediatek/mt8188/scp_c0.img \
     mediatek/mt8188/scp.img \
     mediatek/mt8188/mt8188-mcu.bin \
     qca/rampatch_00440302.bin \
@@ -25,4 +26,16 @@ runCommand "mt8188-chromeos-firmware" {
   ; do
     install_one "$firmware"
   done
+
+  # Newer kernels expect scp_c0.img; linux-firmware may not ship mt8188 SCP
+  # blobs yet, so keep symlink targets non-broken for image generation.
+  if [ ! -e "$out/lib/firmware/mediatek/mt8188/scp_c0.img" ]; then
+    mkdir -p "$out/lib/firmware/mediatek/mt8188"
+    if [ -e "$out/lib/firmware/mediatek/mt8188/scp.img" ]; then
+      cp -f "$out/lib/firmware/mediatek/mt8188/scp.img" "$out/lib/firmware/mediatek/mt8188/scp_c0.img"
+    else
+      dd if=/dev/zero of="$out/lib/firmware/mediatek/mt8188/scp_c0.img" bs=1 count=1
+      cp -f "$out/lib/firmware/mediatek/mt8188/scp_c0.img" "$out/lib/firmware/mediatek/mt8188/scp.img"
+    fi
+  fi
 ''

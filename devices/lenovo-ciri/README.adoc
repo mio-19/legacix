@@ -14,6 +14,7 @@ This target is configured to use the ChromeOS downstream kernel source from:
 
 * `https://chromium.googlesource.com/chromiumos/third_party/kernel`
 * branch family: `chromeos-6.1`
+* currently pinned kernel release: `6.1.157`
 
 == Device-specific notes
 

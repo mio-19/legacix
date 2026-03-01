@@ -7,7 +7,7 @@
 (
 mobile-nixos.kernel-builder {
   # ChromeOS downstream kernel used on geralt/ciri devices.
-  version = "6.1.135";
+  version = "6.1.157";
   configfile = ./config.aarch64;
 
   src = fetchgit {
