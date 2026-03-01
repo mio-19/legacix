@@ -108,46 +108,48 @@ in
       ];
     });
 
-    qt5 = super.qt5.overrideScope (_: qtSuper: {
-      qtbase = qtSuper.qtbase.overrideAttrs (old: {
-        setupHook = self.writeText "qtbase-setup-hook.sh" (
-          builtins.replaceStrings
-            [
-              "        echo >&2 \"Error: detected mismatched Qt dependencies:\"\n        echo >&2 \"    @dev@\"\n        echo >&2 \"    $__nix_qtbase\"\n        exit 1\n"
-            ]
-            [
-              "        echo >&2 \"Warning: mismatched Qt dependencies in cross build, continuing:\"\n        echo >&2 \"    @dev@\"\n        echo >&2 \"    $__nix_qtbase\"\n"
-            ]
-            (builtins.readFile old.setupHook)
-        );
-      });
-    });
+    qt5 = if self.stdenv.buildPlatform != self.stdenv.hostPlatform then
+      super.qt5.overrideScope (_: qtSuper: {
+        qtbase = qtSuper.qtbase.overrideAttrs (old: {
+          setupHook = self.writeText "qtbase-setup-hook.sh" (
+            builtins.replaceStrings
+              [
+                "        echo >&2 \"Error: detected mismatched Qt dependencies:\"\n        echo >&2 \"    @dev@\"\n        echo >&2 \"    $__nix_qtbase\"\n        exit 1\n"
+              ]
+              [
+                "        echo >&2 \"Warning: mismatched Qt dependencies in cross build, continuing:\"\n        echo >&2 \"    @dev@\"\n        echo >&2 \"    $__nix_qtbase\"\n"
+              ]
+              (builtins.readFile old.setupHook)
+          );
+        });
+      })
+    else
+      super.qt5;
 
-    sbc = super.sbc.overrideAttrs (old: {
-      postPatch = (old.postPatch or "") + ''
-        # GCC/C23 treats empty parameter lists as no-argument functions.
-        # Upstream ARMv6 code calls naked asm helpers with args; cast explicitly.
-        substituteInPlace sbc/sbc_primitives_armv6.c \
-          --replace-fail 'sbc_analyze_eight_armv6(x, out, analysis_consts_fixed8_simd_odd);' \
-            '((void (*)(int16_t *, int32_t *, const FIXED_T*))sbc_analyze_eight_armv6)(x, out, analysis_consts_fixed8_simd_odd);' \
-          --replace-fail 'sbc_analyze_eight_armv6(x, out, analysis_consts_fixed8_simd_even);' \
-            '((void (*)(int16_t *, int32_t *, const FIXED_T*))sbc_analyze_eight_armv6)(x, out, analysis_consts_fixed8_simd_even);'
-      '';
-    });
+    sbc = if self.stdenv.buildPlatform != self.stdenv.hostPlatform then
+      super.sbc.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          # GCC/C23 treats empty parameter lists as no-argument functions.
+          # Upstream ARMv6 code calls naked asm helpers with args; cast explicitly.
+          substituteInPlace sbc/sbc_primitives_armv6.c \
+            --replace-fail 'sbc_analyze_eight_armv6(x, out, analysis_consts_fixed8_simd_odd);' \
+              '((void (*)(int16_t *, int32_t *, const FIXED_T*))sbc_analyze_eight_armv6)(x, out, analysis_consts_fixed8_simd_odd);' \
+            --replace-fail 'sbc_analyze_eight_armv6(x, out, analysis_consts_fixed8_simd_even);' \
+              '((void (*)(int16_t *, int32_t *, const FIXED_T*))sbc_analyze_eight_armv6)(x, out, analysis_consts_fixed8_simd_even);'
+        '';
+      })
+    else
+      super.sbc;
 
-    gnutls = super.gnutls.overrideAttrs (old: {
-      # Cross builds may try to run target doc helpers (errcodes/printlist),
-      # which fails with "Exec format error". Disable docs when cross-compiling.
-      configureFlags =
-        (old.configureFlags or [])
-        ++ self.lib.optionals (self.stdenv.buildPlatform != self.stdenv.hostPlatform) [
-          "--disable-doc"
-        ];
-      outputs = if self.stdenv.buildPlatform != self.stdenv.hostPlatform then
-        builtins.filter (o: o != "devdoc") old.outputs
-      else
-        old.outputs;
-    });
+    gnutls = if self.stdenv.buildPlatform != self.stdenv.hostPlatform then
+      super.gnutls.overrideAttrs (old: {
+        # Cross builds may try to run target doc helpers (errcodes/printlist),
+        # which fails with "Exec format error". Disable docs when cross-compiling.
+        configureFlags = (old.configureFlags or []) ++ [ "--disable-doc" ];
+        outputs = builtins.filter (o: !(builtins.elem o [ "devdoc" "man" ])) old.outputs;
+      })
+    else
+      super.gnutls;
 
 
     # Things specific to mobile-nixos.
