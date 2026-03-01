@@ -1,0 +1,30 @@
+= Lenovo Chromebook Duet 11" (2024)
+include::_support/common.inc[]
+
+== Status
+
+This target maps to ChromeOS board `ciri` on platform `geralt` (MediaTek MT8188).
+
+Support level is currently `best-effort` and expected to need device-specific
+bring-up work.
+
+== Kernel Source
+
+This target is configured to use the ChromeOS downstream kernel source from:
+
+* `https://chromium.googlesource.com/chromiumos/third_party/kernel`
+* branch family: `chromeos-6.1`
+
+== Device-specific notes
+
+=== Developer mode
+
+For more details the link:https://chromium.googlesource.com/chromiumos/docs/+/master/debug_buttons.md#Firmware-Menu-Interface[
+Firmware Menu Interface] section from the upstream documentation can be read.
+
+You will need to:
+
+. Boot in _Recovery mode_ by powering on using `Power` + `Volume-Up` + `Volume-Down`
+. Activate Developer mode by pressing `Volume-Up` and `Volume-Down` simultaneously
+
+Note that this is only to allow you to boot unverified images.

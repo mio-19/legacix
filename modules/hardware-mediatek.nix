@@ -26,6 +26,11 @@ in
       default = false;
       description = "enable when SOC is Mediatek MT8183";
     };
+    hardware.socs.mediatek-mt8188.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "enable when SOC is Mediatek MT8188";
+    };
   };
 
   config = mkMerge [
@@ -48,6 +53,11 @@ in
     }
     {
       mobile = mkIf cfg.mediatek-mt8183.enable {
+        system.system = "aarch64-linux";
+      };
+    }
+    {
+      mobile = mkIf cfg.mediatek-mt8188.enable {
         system.system = "aarch64-linux";
       };
     }
