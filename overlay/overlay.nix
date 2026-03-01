@@ -143,6 +143,10 @@ in
         ++ self.lib.optionals (self.stdenv.buildPlatform != self.stdenv.hostPlatform) [
           "--disable-doc"
         ];
+      outputs = if self.stdenv.buildPlatform != self.stdenv.hostPlatform then
+        builtins.filter (o: o != "devdoc") old.outputs
+      else
+        old.outputs;
     });
 
 
